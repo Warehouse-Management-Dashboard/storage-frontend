@@ -1,0 +1,32 @@
+.side-bar {
+  width: 250px;
+  flex-wrap: nowrap !important  ;
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15);
+}
+
+.side-bar-logo {
+  height: 120px;
+}
+
+.side-bar-item {
+  border-radius: 4px;
+}
+.side-bar-item:hover {
+  background-color: #2f3546;
+}
+.side-bar-item .nav-link {
+  color: #8a92a6 !important;
+}
+.side-bar-item .nav-link:hover {
+  color: #fff !important;
+}
+
+.side-bar-item:has(.active) {
+  background-color: #3a57e8;
+}
+.side-bar-item:has(.active):hover {
+  background-color: #4d67ea;
+}
+.side-bar-item .active {
+  color: white !important;
+}
