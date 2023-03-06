@@ -26,3 +26,8 @@
 .bottom-line {
   border-bottom: 1px solid #30384f;
 }
+
+.App h1 {
+  text-align: center;
+  color: #8a92a6;
+}

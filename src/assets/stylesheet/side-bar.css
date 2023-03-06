@@ -14,10 +14,11 @@
 .side-bar-item:hover {
   background-color: #2f3546;
 }
-.side-bar-item .nav-link {
+.side-bar-item .nav-link a {
   color: #8a92a6 !important;
+  text-decoration: none;
 }
-.side-bar-item .nav-link:hover {
+.side-bar-item .nav-link:hover a {
   color: #fff !important;
 }
 
@@ -27,6 +28,6 @@
 .side-bar-item:has(.active):hover {
   background-color: #4d67ea;
 }
-.side-bar-item .active {
+.side-bar-item .active a {
   color: white !important;
 }
