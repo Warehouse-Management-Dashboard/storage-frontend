@@ -5,7 +5,7 @@
 }
 
 .side-bar-logo {
-  height: 120px;
+  height: 64px;
 }
 
 .side-bar-item {
@@ -14,11 +14,11 @@
 .side-bar-item:hover {
   background-color: #2f3546;
 }
-.side-bar-item .nav-link a {
+.side-bar-item .nav-link {
   color: #8a92a6 !important;
   text-decoration: none;
 }
-.side-bar-item .nav-link:hover a {
+.side-bar-item .nav-link:hover {
   color: #fff !important;
 }
 
@@ -28,6 +28,6 @@
 .side-bar-item:has(.active):hover {
   background-color: #4d67ea;
 }
-.side-bar-item .active a {
+.side-bar-item .active {
   color: white !important;
 }
