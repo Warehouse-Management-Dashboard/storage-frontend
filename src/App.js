@@ -2,11 +2,13 @@ import React from "react";
 import "./App.css";
 import MainLayout from "./components/MainLayout";
 import { Route, Routes } from "react-router-dom";
+import LogIn from "./pages/LogIn";
 
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/log-in" element={<LogIn />} />
         <Route path="/" element={<MainLayout />}>
           <Route index element={<h1>Dashboard</h1>} />
           <Route path="tables" element={<h1>Table</h1>} />

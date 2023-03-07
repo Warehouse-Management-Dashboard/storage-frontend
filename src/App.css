@@ -1,1 +1,37 @@
-
+.full-container {
+  width: 100%;
+  min-height: 100vh;
+}
+.c-text {
+  color: #8a92a6;
+}
+.c-text-muted {
+  color: #5f636d;
+}
+.c-text-light {
+  color: #adb5bd;
+}
+.c-text-white {
+  color: #fff;
+}
+.c-bg-1 {
+  background-color: #151824;
+}
+.c-bg-2 {
+  background-color: #222738;
+}
+.c-bg-hover:hover {
+  background-color: #2f3546;
+}
+.c-primary {
+  background-color: #3a57e8;
+}
+.c-primary:hover {
+  background-color: #4d67ea;
+}
+.bottom-line {
+  border-bottom: 1px solid #30384f;
+}
+.box-shadow {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
