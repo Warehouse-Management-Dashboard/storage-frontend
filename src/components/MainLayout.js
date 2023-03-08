@@ -10,7 +10,10 @@ const MainLayout = () => {
   };
   return (
     <>
-      <SideBar sideBarClassName={sideBarOpen} />
+      <SideBar
+        sideBarClassName={sideBarOpen}
+        sideBarOpenHandle={sideBarOpenHandle}
+      />
       <main className={`main-layout-container ${sideBarOpen}`}>
         <HeaderBar sideBarOpenHandle={sideBarOpenHandle} />
         <Outlet />

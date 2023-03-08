@@ -2,6 +2,7 @@
   width: 250px;
   flex-wrap: nowrap !important  ;
   box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
 }
 
 .side-bar-logo {

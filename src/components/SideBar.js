@@ -8,14 +8,20 @@ import {
   Clipboard,
   BoxArrowRight,
 } from "react-bootstrap-icons";
-
-const SideBar = ({ sideBarClassName }) => {
+import { ArrowLeft } from "react-bootstrap-icons";
+const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
   return (
     <Nav
       className={`side-bar vstack position-fixed top-0 bottom-0 center c-bg-2 ${sideBarClassName}`}
     >
-      <div className="side-bar-logo d-flex justify-content-center align-items-center bottom-line">
+      <div className="side-bar-logo d-flex justify-content-center align-items-center bottom-line position-relative">
         <h1>LOGO</h1>
+        <div
+          className="  sidebar-close-button p-1 c-bg-3 c-bg-hover box-shadow rounded position-absolute top-50 start-100 translate-middle"
+          onClick={sideBarOpenHandle}
+        >
+          <ArrowLeft size="24px" className="d-block" />
+        </div>
       </div>
       <Stack gap={2} className="side-bar-menu p-3 bottom-line">
         <Nav.Item className="side-bar-item">

@@ -12,7 +12,7 @@ const HeaderBar = ({ sideBarOpenHandle }) => {
         className="hamburger-menu me-3 p-1 c-bg-hover rounded"
         onClick={sideBarOpenHandle}
       >
-        <List size="24px" />
+        <List size="24px" className="d-block" />
       </div>
       <h1 className="h3 d-block mb-0 ">
         {location.state ? location.state : "Dashboard"}
