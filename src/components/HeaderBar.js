@@ -7,7 +7,7 @@ const HeaderBar = ({ sideBarOpenHandle }) => {
   const location = useLocation();
 
   return (
-    <header className="header w-100 px-3 box-shadow c-bg-2 d-flex align-items-center">
+    <header className="header w-100 px-3 box-shadow c-bg-2 d-flex align-items-center position-sticky top-0 ">
       <div
         className="hamburger-menu me-3 p-1 c-bg-hover rounded"
         onClick={sideBarOpenHandle}
