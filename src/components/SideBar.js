@@ -9,9 +9,11 @@ import {
   BoxArrowRight,
 } from "react-bootstrap-icons";
 
-const SideBar = () => {
+const SideBar = ({ sideBarClassName }) => {
   return (
-    <Nav className="side-bar vstack position-fixed top-0 start-0 bottom-0 center c-bg-2">
+    <Nav
+      className={`side-bar vstack position-fixed top-0 bottom-0 center c-bg-2 ${sideBarClassName}`}
+    >
       <div className="side-bar-logo d-flex justify-content-center align-items-center bottom-line">
         <h1>LOGO</h1>
       </div>
