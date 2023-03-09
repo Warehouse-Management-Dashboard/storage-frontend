@@ -1,7 +1,12 @@
+@font-face {
+  font-family: roboto;
+  src: url(../src/assets/font/Roboto-Regular.ttf);
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,35 +22,4 @@ code {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-.spacing {
-  height: 100%;
-  width: 100%;
-}
-.c-text {
-  color: #8a92a6;
-}
-.c-text-white {
-  color: #fff;
-}
-.c-bg-1 {
-  background-color: #151824;
-}
-.c-bg-2 {
-  background-color: #222738;
-}
-.c-bg-hover:hover {
-  background-color: #2f3546;
-}
-.c-primary {
-  background-color: #3a57e8;
-}
-.c-primary:hover {
-  background-color: #c4ccf8;
-}
-.bottom-line {
-  border-bottom: 1px solid #30384f;
-}
-.box-shadow {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
