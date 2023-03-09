@@ -1,0 +1,37 @@
+.table-product thead {
+  color: #adb5bd !important;
+  background-color: #333a52;
+  padding-inline: 8px;
+}
+.table-product tr {
+  color: #8a92a6 !important;
+}
+.table-product tbody tr:hover {
+  background-color: #2f3546;
+}
+.table-product td,
+.table-product th {
+  border-color: #30384f;
+}
+.table-product .action svg:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.table-navigate-button button {
+  background-color: #222738;
+  border: 1px solid #30384f;
+  color: #8a92a6;
+}
+.table-navigate-button button:hover,
+.table-navigate-button button:active {
+  background-color: #333a52 !important;
+  border-color: #333a52 !important;
+  color: #adb5bd !important;
+}
+.table-navigate-button button.active,
+.table-navigate-button button.active:hover,
+.table-navigate-button button.active:active {
+  background-color: #3a57e8 !important;
+  color: white !important;
+}

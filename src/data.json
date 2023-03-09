@@ -1,0 +1,92 @@
+[
+  {
+    "productName": "samsung s23 ultra",
+    "productId": "123412",
+    "category": "smartphone",
+    "supplier": "satnusa",
+    "quantity": 5,
+    "price": 210000000,
+    "totalPrice": 105000000
+  },
+  {
+    "productName": "iphone 14 pro max",
+    "productId": "342334",
+    "category": "smartphone",
+    "supplier": "satnusa",
+    "quantity": 3,
+    "price": 200000000,
+    "totalPrice": 60000000
+  },
+  {
+    "productName": "asus rog ",
+    "productId": "439093",
+    "category": "laptop",
+    "supplier": "asus official",
+    "quantity": 7,
+    "price": 16000000,
+    "totalPrice": 1320000000
+  },
+  {
+    "productName": "laptop lenovo ",
+    "productId": "539093",
+    "category": "laptop",
+    "supplier": "lenovo official",
+    "quantity": 2,
+    "price": 3000000,
+    "totalPrice": 6000000
+  },
+  {
+    "productName": "asus vivobook",
+    "productId": "099093",
+    "category": "laptop",
+    "supplier": "asus official",
+    "quantity": 5,
+    "price": 17000000,
+    "totalPrice": 850000000
+  },
+  {
+    "productName": "iphone smart watch",
+    "productId": "099093",
+    "category": "smart watch",
+    "supplier": "ibox",
+    "quantity": 10,
+    "price": 5000000,
+    "totalPrice": 50000000
+  },
+  {
+    "productName": "samsung s23 ultra",
+    "productId": "123412",
+    "category": "smartphone",
+    "supplier": "satnusa",
+    "quantity": 5,
+    "price": 210000000,
+    "totalPrice": 105000000
+  },
+  {
+    "productName": "iphone 14 pro max",
+    "productId": "342334",
+    "category": "smartphone",
+    "supplier": "satnusa",
+    "quantity": 3,
+    "price": 200000000,
+    "totalPrice": 60000000
+  },
+  {
+    "productName": "asus rog ",
+    "productId": "439093",
+    "category": "laptop",
+    "supplier": "asus official",
+    "quantity": 7,
+    "price": 16000000,
+    "totalPrice": 1320000000
+  },
+  {
+    "productName": "laptop lenovo ",
+    "productId": "539093",
+    "category": "laptop",
+    "supplier": "lenovo official",
+    "quantity": 2,
+    "price": 3000000,
+    "totalPrice": 6000000
+  }
+]
