@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import MainLayout from "./components/MainLayout";
 import { Route, Routes } from "react-router-dom";
+import ActivityLog from "./pages/ActivityLog";
 import LogIn from "./pages/LogIn";
 import Tables from "./pages/Tables";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -35,7 +36,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<h1>Dashboard</h1>} />
             <Route path="tables" element={<Tables />} />
-            <Route path="activity-log" element={<h1>Activity Log</h1>} />
+            <Route path="activity-log" element={<ActivityLog />} />
             <Route path="log-out" element={<h1>log-out</h1>} />
           </Route>
           <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
