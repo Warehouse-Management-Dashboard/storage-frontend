@@ -3,8 +3,9 @@ import "./App.css";
 import MainLayout from "./components/MainLayout";
 import { Route, Routes } from "react-router-dom";
 import ActivityLog from "./pages/ActivityLog";
-import LogIn from "./pages/LogIn";
+import Login from "./pages/Login";
 import Tables from "./pages/Tables";
+import Dashboard from "./pages/Dashboard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
@@ -27,18 +28,18 @@ const theme = createTheme({
   },
 });
 function App() {
-  console.log(theme);
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path="/log-in" element={<LogIn />} />
+          <Route path="/log-in" element={<Login />} />
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<h1>Dashboard</h1>} />
+            <Route index element={<Dashboard />} />
             <Route path="tables" element={<Tables />} />
             <Route path="activity-log" element={<ActivityLog />} />
-            <Route path="log-out" element={<h1>log-out</h1>} />
           </Route>
+          <Route path="log-out" element={<Login />} />
+
           <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
         </Routes>
       </ThemeProvider>
