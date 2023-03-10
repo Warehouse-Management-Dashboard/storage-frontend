@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import ActivityLog from "./pages/ActivityLog";
 import Login from "./pages/Login";
 import Tables from "./pages/Tables";
+import Dashboard from "./pages/Dashboard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
@@ -33,7 +34,7 @@ function App() {
         <Routes>
           <Route path="/log-in" element={<Login />} />
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<h1>Dashboard</h1>} />
+            <Route index element={<Dashboard />} />
             <Route path="tables" element={<Tables />} />
             <Route path="activity-log" element={<ActivityLog />} />
           </Route>

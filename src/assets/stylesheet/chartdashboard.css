@@ -1,0 +1,89 @@
+.total-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.main-information {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+}
+.chart-container {
+  width: 70%;
+  height: 800px;
+}
+.activity-container {
+  width: 30%;
+  margin-left: 20px;
+  height: 820px;
+  background: #222738;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+}
+.first-chart {
+  width: 100%;
+  height: 350px;
+  background: #222738;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+}
+.first-chart-title {
+  border-bottom: 1px solid #30384f;
+}
+.first-chart-body {
+  display: flex;
+  padding: 20px;
+  height: 80%;
+}
+
+.first-chart-pie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  height: 90%;
+}
+
+.first-chart-profit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  flex-direction: column;
+  border-left: 1px solid #30384f;
+  border-right: 1px solid #30384f;
+}
+
+.first-chart-sold-order {
+  width: 35%;
+  height: 100%;
+}
+
+.first-chart-sold {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid #30384f;
+}
+
+.first-chart-order {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.second-chart {
+  margin-top: 20px;
+  width: 100%;
+  height: 450px;
+  background: #222738;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.second-chart-title {
+  border-bottom: 1px solid #30384f;
+}
