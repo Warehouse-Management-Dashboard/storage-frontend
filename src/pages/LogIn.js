@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Stack } from "react-bootstrap";
 import "../assets/stylesheet/login.css";
-const LogIn = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
@@ -55,4 +55,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Login;
