@@ -7,8 +7,11 @@ import {
   Table,
   Clipboard,
   BoxArrowRight,
+  Bag,
+  CurrencyDollar,
 } from "react-bootstrap-icons";
 import { ArrowLeft } from "react-bootstrap-icons";
+import Typography from "@mui/material/Typography";
 const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
   return (
     <Nav
@@ -24,6 +27,13 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
         </div>
       </div>
       <Stack gap={2} className="side-bar-menu p-3 bottom-line">
+        <Typography
+          variant="body2"
+          sx={{ fontWeight: "bold" }}
+          className="c-text-muted"
+        >
+          PAGES
+        </Typography>
         <Nav.Item className="side-bar-item">
           <NavLink className="nav-link" to="/" state="Dashboard">
             <BarChart className="mb-1" />
@@ -41,6 +51,25 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
             <Clipboard className="mb-1" />
             <p className="d-inline ms-2">Activity Log</p>
           </NavLink>
+        </Nav.Item>
+        <Typography
+          variant="body2"
+          sx={{ fontWeight: "bold" }}
+          className="c-text-muted"
+        >
+          ACTION
+        </Typography>
+        <Nav.Item className="side-bar-item px-3 py-2">
+          <div>
+            <Bag className="mb-1" />
+            <p className="d-inline ms-2">Order Item</p>
+          </div>
+        </Nav.Item>
+        <Nav.Item className="side-bar-item px-3 py-2">
+          <div>
+            <CurrencyDollar className="mb-1" />
+            <p className="d-inline ms-2">Sell Item</p>
+          </div>
         </Nav.Item>
       </Stack>
 

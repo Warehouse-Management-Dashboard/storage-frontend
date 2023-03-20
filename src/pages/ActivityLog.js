@@ -17,7 +17,7 @@ const ActivityLog = () => {
           </LocalizationProvider>
         </div>
 
-        <Table responsive className="table-product w-100 p-3 bg-transparent ">
+        <Table responsive className="table-product w-100 bg-transparent mb-0">
           <thead>
             <tr>
               <th style={{ width: "object-fit" }}>No</th>
