@@ -46,7 +46,6 @@ const TablesAction = () => {
               //   value={age}
               //   onChange={handleChange}
               label="Sort by"
-              sx={{ "&:before": { borderColor: "#5f636d" } }}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -62,7 +61,6 @@ const TablesAction = () => {
               labelId="category-select-label"
               id="category-select"
               label="Category"
-              sx={{ "&:before": { borderColor: "#5f636d" } }}
             >
               <MenuItem value="">
                 <em>None</em>

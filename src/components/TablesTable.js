@@ -11,13 +11,13 @@ const TablesTable = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Product Name</th>
-              <th>Product Id</th>
-              <th>Category</th>
-              <th>Supplier</th>
+              <th style={{ minWidth: "150px" }}>Product Name</th>
+              <th style={{ minWidth: "90px" }}>Product Id</th>
+              <th style={{ minWidth: "100px" }}>Category</th>
+              <th style={{ minWidth: "100px" }}>Supplier</th>
               <th>Quantity</th>
-              <th>Price</th>
-              <th>Total Price</th>
+              <th style={{ minWidth: "100px" }}>Price</th>
+              <th style={{ minWidth: "100px" }}>Total Price</th>
               <th></th>
             </tr>
           </thead>
@@ -30,7 +30,7 @@ const TablesTable = () => {
                   <td>{data.productId}</td>
                   <td>{data.category}</td>
                   <td>{data.supplier}</td>
-                  <td>{data.quantity}</td>
+                  <td style={{ textAlign: "center" }}>{data.quantity}</td>
                   <td>{data.price}</td>
                   <td>{data.totalPrice}</td>
                   <td className="action">
@@ -43,7 +43,7 @@ const TablesTable = () => {
           </tbody>
         </Table>
       </Container>
-      <ButtonGroup className="table-navigate-button   ">
+      <ButtonGroup className="table-navigate-button align-self-center">
         <Button>prev</Button>
         <Button className="active">1</Button>
         <Button>2</Button>

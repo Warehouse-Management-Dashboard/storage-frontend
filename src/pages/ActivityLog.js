@@ -1,128 +1,63 @@
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
-import React from "react";
 import "../assets/stylesheet/activitylog.css";
-
+import React from "react";
+import { Container, Table, Button, ButtonGroup } from "react-bootstrap";
+import datas from "../data.json";
+import "../assets/stylesheet/tables.css";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 const ActivityLog = () => {
   return (
-    <div className="p-5">
-      <div className="log-container">
-        <table className="p-5 w-100">
+    <div className="py-3 px-4 vstack gap-3">
+      <Container className="c-bg-2 box-shadow rounded  p-0 overflow-hidden">
+        <div className="d-flex justify-content-end p-3">
+          <LocalizationProvider dateAdapter={AdapterMoment} className="ms-auto">
+            <DatePicker />
+          </LocalizationProvider>
+        </div>
+
+        <Table responsive className="table-product w-100 p-3 bg-transparent ">
           <thead>
             <tr>
-              <th style={{ width: "50px" }}></th>
-              <th style={{ width: "200px" }}>Admin</th>
-              <th style={{ width: "100px" }}>Actions</th>
-              <th>Log</th>
+              <th style={{ width: "object-fit" }}>No</th>
+              <th style={{ minWidth: "100px" }}>Admin</th>
+              <th style={{ minWidth: "200px" }}>Date</th>
+              <th style={{ minWidth: "100px" }}>Action</th>
+              <th style={{ minWidth: "400px" }}>Description</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <FontAwesomeIcon icon={faCircle} />
-              </td>
-              <td className="py-3 ">
-                <span className="fw-bolder ">Josua Yoprisyanto</span>
-                <br />
-                <span className="fs-6">
-                  {moment().format("DD MMMM YYYY, HH:mm")}
-                </span>
-              </td>
-              <td>UPDATE</td>
-              <td>
-                Admin with id 2 just assigned "Josua Yoprisyanto" (1203) into
-                "PULSE Basketball" activity (18)
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <FontAwesomeIcon icon={faCircle} />
-              </td>
-              <td className="py-3 ">
-                <span className="fw-bolder ">Josua Yoprisyanto</span>
-                <br />
-                <span className="fs-6">
-                  {moment().format("DD MMMM YYYY, HH:mm")}
-                </span>
-              </td>
-              <td>UPDATE</td>
-              <td>
-                Admin with id 2 just assigned "Josua Yoprisyanto" (1203) into
-                "PULSE Basketball" activity (18)
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <FontAwesomeIcon icon={faCircle} />
-              </td>
-              <td className="py-3 ">
-                <span className="fw-bolder ">Josua Yoprisyanto</span>
-                <br />
-                <span className="fs-6">
-                  {moment().format("DD MMMM YYYY, HH:mm")}
-                </span>
-              </td>
-              <td>CREATE</td>
-              <td>
-                Admin with id 2 just assigned "Josua Yoprisyanto" (1203) into
-                "PULSE Basketball" activity (18)
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <FontAwesomeIcon icon={faCircle} />
-              </td>
-              <td className="py-3 ">
-                <span className="fw-bolder ">Josua Yoprisyanto</span>
-                <br />
-                <span className="fs-6">
-                  {moment().format("DD MMMM YYYY, HH:mm")}
-                </span>
-              </td>
-              <td>UPDATE</td>
-              <td>
-                Admin with id 2 just assigned "Josua Yoprisyanto" (1203) into
-                "PULSE Basketball" activity (18)
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <FontAwesomeIcon icon={faCircle} />
-              </td>
-              <td className="py-3 ">
-                <span className="fw-bolder ">Josua Yoprisyanto</span>
-                <br />
-                <span className="fs-6">
-                  {moment().format("DD MMMM YYYY, HH:mm")}
-                </span>
-              </td>
-              <td>DELETE</td>
-              <td>
-                Admin with id 2 just assigned "Josua Yoprisyanto" (1203) into
-                "PULSE Basketball" activity (18)
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <FontAwesomeIcon icon={faCircle} />
-              </td>
-              <td className="py-3 ">
-                <span className="fw-bolder ">Josua Yoprisyanto</span>
-                <br />
-                <span className="fs-6">
-                  {moment().format("DD MMMM YYYY, HH:mm")}
-                </span>
-              </td>
-              <td>UPDATE</td>
-              <td>
-                Admin with id 2 just assigned "Josua Yoprisyanto" (1203) into
-                "PULSE Basketball" activity (18)
-              </td>
-            </tr>
+            {datas.map((data, i) => {
+              return (
+                <tr>
+                  <td>{i + 1}</td>
+                  <td>Davin Lim</td>
+                  <td>
+                    <span className="fs-6">
+                      {moment().format("DD MMMM YYYY, HH:mm")}
+                    </span>
+                  </td>
+                  <td>Update</td>
+                  <td>
+                    Admin with id 2 just assigned "Josua Yoprisyanto" (1203)
+                    into "PULSE Basketball" activity (18)
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
-        </table>
-      </div>
+        </Table>
+      </Container>
+      <ButtonGroup className="table-navigate-button align-self-center">
+        <Button>prev</Button>
+        <Button className="active">1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+        <Button>next</Button>
+      </ButtonGroup>
     </div>
   );
 };
