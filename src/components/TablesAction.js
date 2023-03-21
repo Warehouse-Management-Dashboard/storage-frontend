@@ -38,7 +38,7 @@ const TablesAction = () => {
           lg="7"
           className="gap-3 justify-content-end align-items-center d-none d-lg-flex"
         >
-          <FormControl variant="standard" sx={{ minWidth: 120 }} size="small">
+          <FormControl sx={{ minWidth: 120 }} size="small">
             <InputLabel id="sortby-select-label">Sort by</InputLabel>
             <Select
               labelId="sortby-select-label"
@@ -55,7 +55,7 @@ const TablesAction = () => {
               })}
             </Select>
           </FormControl>
-          <FormControl variant="standard" sx={{ minWidth: 100 }} size="small">
+          <FormControl sx={{ minWidth: 120 }} size="small">
             <InputLabel id="category-select-label">Category</InputLabel>
             <Select
               labelId="category-select-label"
