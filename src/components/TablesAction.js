@@ -2,7 +2,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import React from "react";
+import React, { useState } from "react";
 import {
   Funnel,
   FileEarmarkArrowDown,
@@ -18,6 +18,10 @@ const sortBySelection = [
 ];
 const categorySelection = ["laptop", "smartphone", "smartwatch"];
 const TablesAction = () => {
+  const [sortBySelect, setSortBySelect] = useState("");
+  const [categorySelect, setCategorySelect] = useState("");
+  const [filterByName, setFilterByName] = useState("");
+
   return (
     <Container className="p-3 c-bg-2 box-shadow rounded align-items-center justify-content-end">
       <Row>
@@ -28,6 +32,8 @@ const TablesAction = () => {
               id="filter-by-name"
               placeholder="Filter by Name"
               className="form-search"
+              value={filterByName}
+              onChange={(e) => setFilterByName(e.target.value)}
             />
             <label htmlFor="filter-by-name" className="form-search-icon">
               <Funnel />
@@ -43,8 +49,8 @@ const TablesAction = () => {
             <Select
               labelId="sortby-select-label"
               id="sortby-select"
-              //   value={age}
-              //   onChange={handleChange}
+              value={sortBySelect}
+              onChange={(e) => setSortBySelect(e.target.value)}
               label="Sort by"
             >
               <MenuItem value="">
@@ -58,6 +64,8 @@ const TablesAction = () => {
           <FormControl sx={{ minWidth: 120 }} size="small">
             <InputLabel id="category-select-label">Category</InputLabel>
             <Select
+              value={categorySelect}
+              onChange={(e) => setCategorySelect(e.target.value)}
               labelId="category-select-label"
               id="category-select"
               label="Category"
