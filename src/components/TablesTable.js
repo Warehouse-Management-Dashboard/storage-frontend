@@ -4,27 +4,41 @@ import datas from "../data.json";
 import { CurrencyDollar, Trash } from "react-bootstrap-icons";
 import "../assets/stylesheet/tables.css";
 import ConfirmModal from "../modal/ConfirmModal";
+import IconButton from "@mui/material/IconButton";
+import SellModal from "../modal/SellModal";
 const TablesTable = () => {
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [confirmModalTitle, setConfirmModalTitle] = useState(" ");
-  const dataIdSelected = useRef();
-  const deleteButtonHandle = () => {
-    console.log("data deleted " + dataIdSelected.current);
-    setShowConfirmModal(false);
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [showSellModal, setShowSellModal] = useState(false);
+  const dataSelected = useRef();
+  const deleteProduct = () => {
+    console.log("data deleted " + dataSelected.current);
+    setShowDeleteConfirmModal(false);
   };
-  const deleteConfirmModalShow = (id) => {
-    setConfirmModalTitle("Are You Sure to Delete?");
-    setShowConfirmModal(true);
-    dataIdSelected.current = id;
+  const deleteButtonHandle = (data) => {
+    dataSelected.current = data;
+    setShowDeleteConfirmModal(true);
+  };
+  const sellButtonHandle = (data) => {
+    dataSelected.current = data;
+    setShowSellModal(true);
+  };
+  const sellProduct = (quantity) => {
+    console.log("sell product", dataSelected.current, quantity);
+    setShowSellModal(false);
   };
 
   return (
     <>
       <ConfirmModal
-        showModal={showConfirmModal}
-        closeModal={() => setShowConfirmModal(false)}
-        title={confirmModalTitle}
-        yesAction={deleteButtonHandle}
+        showModal={showDeleteConfirmModal}
+        closeModal={() => setShowDeleteConfirmModal(false)}
+        title="Are You Sure to Delete?"
+        yesAction={deleteProduct}
+      />
+      <SellModal
+        showModal={showSellModal}
+        closeModal={() => setShowSellModal(false)}
+        yesAction={(quantity) => sellProduct(quantity)}
       />
       <Container className="c-bg-2 box-shadow rounded  p-0 overflow-hidden">
         <Table responsive className="table-product w-100 m-0 bg-transparent ">
@@ -54,10 +68,18 @@ const TablesTable = () => {
                   <td>{data.price}</td>
                   <td>{data.totalPrice}</td>
                   <td className="action">
-                    <CurrencyDollar className="me-2" />
-                    <Trash
-                      onClick={() => deleteConfirmModalShow(data.productId)}
-                    />
+                    <IconButton
+                      size="small"
+                      onClick={() => sellButtonHandle(data.productId)}
+                    >
+                      <CurrencyDollar />
+                    </IconButton>
+                    <IconButton
+                      size="small"
+                      onClick={() => deleteButtonHandle(data.productId)}
+                    >
+                      <Trash />
+                    </IconButton>
                   </td>
                 </tr>
               );
