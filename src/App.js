@@ -7,12 +7,16 @@ import LogIn from "./pages/LogIn";
 import Tables from "./pages/Tables";
 import Dashboard from "./pages/Dashboard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { grey } from "@mui/material/colors";
 const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
       main: "#3a57e8",
       light: "#4d67ea",
+    },
+    secondary: {
+      main: grey[600],
     },
     text: {
       primary: "#8a92a6",

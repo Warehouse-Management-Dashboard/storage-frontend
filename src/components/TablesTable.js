@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Container, Table, ButtonGroup, Button } from "react-bootstrap";
 import datas from "../data.json";
-import { Pencil, Trash } from "react-bootstrap-icons";
+import { CurrencyDollar, Trash } from "react-bootstrap-icons";
 import "../assets/stylesheet/tables.css";
+import ConfirmModal from "../modal/ConfirmModal";
 const TablesTable = () => {
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [confirmModalTitle, setConfirmModalTitle] = useState(" ");
+  const dataIdSelected = useRef();
+  const deleteButtonHandle = () => {
+    console.log("data deleted " + dataIdSelected.current);
+    setShowConfirmModal(false);
+  };
+  const deleteConfirmModalShow = (id) => {
+    setConfirmModalTitle("Are You Sure to Delete?");
+    setShowConfirmModal(true);
+    dataIdSelected.current = id;
+  };
+
   return (
     <>
+      <ConfirmModal
+        showModal={showConfirmModal}
+        closeModal={() => setShowConfirmModal(false)}
+        title={confirmModalTitle}
+        yesAction={deleteButtonHandle}
+      />
       <Container className="c-bg-2 box-shadow rounded  p-0 overflow-hidden">
         <Table responsive className="table-product w-100 m-0 bg-transparent ">
           <thead>
@@ -34,8 +54,10 @@ const TablesTable = () => {
                   <td>{data.price}</td>
                   <td>{data.totalPrice}</td>
                   <td className="action">
-                    <Pencil className="me-2" />
-                    <Trash />
+                    <CurrencyDollar className="me-2" />
+                    <Trash
+                      onClick={() => deleteConfirmModalShow(data.productId)}
+                    />
                   </td>
                 </tr>
               );
