@@ -10,18 +10,24 @@ const TablesTable = () => {
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [showSellModal, setShowSellModal] = useState(false);
   const dataSelected = useRef();
+  // delete product
+  // 1. open confirm delete modal
+  const openDeleteConfirmModal = (data) => {
+    dataSelected.current = data;
+    setShowDeleteConfirmModal(true);
+  };
+  // 2. if yes, delete product
   const deleteProduct = () => {
     console.log("data deleted " + dataSelected.current);
     setShowDeleteConfirmModal(false);
   };
-  const deleteButtonHandle = (data) => {
-    dataSelected.current = data;
-    setShowDeleteConfirmModal(true);
-  };
+  // sell product
+  // 1. open sell modal
   const sellButtonHandle = (data) => {
     dataSelected.current = data;
     setShowSellModal(true);
   };
+  // 2. sell product
   const sellProduct = (quantity) => {
     console.log("sell product", dataSelected.current, quantity);
     setShowSellModal(false);
@@ -35,6 +41,7 @@ const TablesTable = () => {
         title="Are You Sure to Delete?"
         yesAction={deleteProduct}
       />
+
       <SellModal
         showModal={showSellModal}
         closeModal={() => setShowSellModal(false)}
@@ -76,7 +83,7 @@ const TablesTable = () => {
                     </IconButton>
                     <IconButton
                       size="small"
-                      onClick={() => deleteButtonHandle(data.productId)}
+                      onClick={() => openDeleteConfirmModal(data.productId)}
                     >
                       <Trash />
                     </IconButton>
