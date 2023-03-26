@@ -2,17 +2,25 @@ export const lineData = {
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
   datasets: [
     {
-      label: "First dataset",
+      label: "Profit",
       data: [33, 53, 85, 41, 44, 65],
       fill: true,
-      backgroundColor: "rgba(75,192,192,0.2)",
-      borderColor: "rgba(75,192,192,1)",
+      borderColor: "#2196f3",
+      backgroundColor: "#2196f3",
     },
     {
-      label: "Second dataset",
+      label: "Sold",
       data: [33, 25, 35, 51, 54, 76],
       fill: false,
-      borderColor: "#742774",
+      borderColor: "#3f51b5",
+      backgroundColor: "#3f51b5",
+    },
+    {
+      label: "Order",
+      data: [37, 22, 30, 22, 40, 22],
+      fill: false,
+      borderColor: "#009688",
+      backgroundColor: "#009688",
     },
   ],
 };

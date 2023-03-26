@@ -16,7 +16,8 @@ const ConfirmModal = ({ showModal, closeModal, title, yesAction }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          p: 3,
+          p: { xs: 2, sm: 3 },
+          width: "min(95% , 300px)",
         }}
       >
         <Box

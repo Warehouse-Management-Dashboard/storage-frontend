@@ -17,7 +17,7 @@ const SellModal = ({ showModal, closeModal, yesAction }) => {
       <ConfirmModal
         showModal={showSellConfirmModal}
         closeModal={() => setShowSellConfirmModal(false)}
-        title="Are You Sure to Delete?"
+        title="Are You Sure to Sell"
         yesAction={() => {
           yesAction(quantity);
           setShowSellConfirmModal(false);
@@ -31,7 +31,9 @@ const SellModal = ({ showModal, closeModal, yesAction }) => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            p: 3,
+
+            p: { xs: 2, sm: 3 },
+            width: "min(95% , 250px)",
           }}
         >
           <Box
@@ -44,9 +46,14 @@ const SellModal = ({ showModal, closeModal, yesAction }) => {
             }}
           >
             <Typography variant="body1" color="white">
-              Sell Item
+              Sell Product
             </Typography>
-            <IconButton onClick={closeModal}>
+            <IconButton
+              onClick={() => {
+                closeModal();
+                setQuantity(undefined);
+              }}
+            >
               <X />
             </IconButton>
           </Box>
