@@ -8,6 +8,8 @@ import {
   Clipboard,
   BoxArrowRight,
   Bag,
+  Tag,
+  CurrencyDollar,
 } from "react-bootstrap-icons";
 import { ArrowLeft } from "react-bootstrap-icons";
 import Typography from "@mui/material/Typography";
@@ -53,13 +55,15 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
             </NavLink>
           </Nav.Item>
           <Nav.Item className="side-bar-item ">
-            <NavLink
-              className="nav-link"
-              to="/activity-log"
-              state="Activity Log"
-            >
+            <NavLink className="nav-link" to="/activity-log" state="Category">
               <Clipboard className="mb-1" />
               <p className="d-inline ms-2">Activity Log</p>
+            </NavLink>
+          </Nav.Item>
+          <Nav.Item className="side-bar-item ">
+            <NavLink className="nav-link" to="/category" state="Activity Log">
+              <Tag className="mb-1" />
+              <p className="d-inline ms-2">Category</p>
             </NavLink>
           </Nav.Item>
           <Typography
@@ -75,8 +79,18 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
           >
             <div>
               <Bag className="mb-1" />
-              <p className="d-inline ms-2">Order Item</p>
+              <p className="d-inline ms-2">Order Product</p>
             </div>
+          </Nav.Item>
+          <Nav.Item className="side-bar-item ">
+            <NavLink
+              className="nav-link"
+              to="/sell-product"
+              state="Activity Log"
+            >
+              <CurrencyDollar className="mb-1" />
+              <p className="d-inline ms-2">Sell Product</p>
+            </NavLink>
           </Nav.Item>
         </Stack>
 

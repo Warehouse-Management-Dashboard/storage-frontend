@@ -8,6 +8,8 @@ import Tables from "./pages/Tables";
 import Dashboard from "./pages/Dashboard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
+import SellProduct from "./pages/SellProduct";
+import Category from "./pages/Category";
 const theme = createTheme({
   palette: {
     mode: "dark",
@@ -42,6 +44,8 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="tables" element={<Tables />} />
             <Route path="activity-log" element={<ActivityLog />} />
+            <Route path="sell-product" element={<SellProduct />} />
+            <Route pat h="category" element={<Category />} />
           </Route>
           <Route path="log-out" element={<LogIn />} />
 
