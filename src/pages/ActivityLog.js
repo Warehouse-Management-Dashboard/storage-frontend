@@ -30,7 +30,7 @@ const ActivityLog = () => {
           <tbody>
             {datas.map((data, i) => {
               return (
-                <tr>
+                <tr key={i}>
                   <td>{i + 1}</td>
                   <td>Davin Lim</td>
                   <td>

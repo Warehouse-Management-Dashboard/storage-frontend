@@ -64,12 +64,6 @@ const Dashboard = () => {
     <Container className="py-3 px-4">
       <div className="gap-3 d-flex flex-wrap mb-3">
         <TotalCard
-          title={"Profit"}
-          price={2000000}
-          Icon={Cash}
-          color="primary.main"
-        />
-        <TotalCard
           title={"Sold"}
           price={3000000}
           Icon={GraphDownArrow}
@@ -80,6 +74,12 @@ const Dashboard = () => {
           price={2000000}
           Icon={GraphUpArrow}
           color="error.main"
+        />
+        <TotalCard
+          title={"Profit"}
+          price={2000000}
+          Icon={Cash}
+          color="primary.main"
         />
       </div>
 
@@ -106,8 +106,12 @@ const Dashboard = () => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {MONTH.map((item) => {
-                    return <MenuItem value={item}>{item}</MenuItem>;
+                  {MONTH.map((item, i) => {
+                    return (
+                      <MenuItem value={item} key={i}>
+                        {item}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
               </FormControl>
@@ -172,8 +176,12 @@ const Dashboard = () => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {YEAR.map((item) => {
-                    return <MenuItem value={item}>{item}</MenuItem>;
+                  {YEAR.map((item, i) => {
+                    return (
+                      <MenuItem value={item} key={i}>
+                        {item}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
               </FormControl>

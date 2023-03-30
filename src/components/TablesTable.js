@@ -63,7 +63,7 @@ const TablesTable = () => {
           <tbody>
             {datas.map((data, i) => {
               return (
-                <tr>
+                <tr key={i}>
                   <td>{i + 1}</td>
                   <td>{data.productName}</td>
                   <td>{data.productId}</td>

@@ -98,8 +98,12 @@ const EditModal = ({ showModal, closeModal, data }) => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {categorySelection.map((item) => {
-                    return <MenuItem value={item}>{item}</MenuItem>;
+                  {categorySelection.map((item, i) => {
+                    return (
+                      <MenuItem value={item} key={i}>
+                        {item}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
               </FormControl>
