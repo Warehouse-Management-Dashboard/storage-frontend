@@ -8,14 +8,14 @@ import { Button, Container } from "react-bootstrap";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
+const categorySelection = ["laptop", "smartphone", "smartwatch"];
 const sortBySelection = [
   "sort by newest",
   "sort by oldest",
   "sort A to Z",
   "sort Z to A",
 ];
-const categorySelection = ["laptop", "smartphone", "smartwatch"];
+
 const TablesAction = () => {
   const [sortBySelect, setSortBySelect] = useState("");
   const [categorySelect, setCategorySelect] = useState("");

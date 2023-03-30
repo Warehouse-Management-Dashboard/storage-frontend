@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import { X } from "react-bootstrap-icons";
 const ConfirmModal = ({ showModal, closeModal, title, yesAction }) => {
   return (
-    <Modal open={showModal} onClose={closeModal} sx={{ zIndex: 99999 }}>
+    <Modal open={showModal} onClose={closeModal} sx={{ zIndex: 1300 }}>
       <Paper
         sx={{
           position: "absolute",

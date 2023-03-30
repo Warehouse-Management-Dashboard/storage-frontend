@@ -1,51 +1,47 @@
 import React, { useRef, useState } from "react";
 import { Container, Table, ButtonGroup, Button } from "react-bootstrap";
 import datas from "../data.json";
-import { CurrencyDollar, Trash } from "react-bootstrap-icons";
+import { Pencil, Trash } from "react-bootstrap-icons";
 import "../assets/stylesheet/tables.css";
 import ConfirmModal from "../modal/ConfirmModal";
-import IconButton from "@mui/material/IconButton";
-import SellModal from "../modal/SellModal";
+import MuiButton from "@mui/material/Button";
+import EditModal from "../modal/EditModal";
+import { getCapitalize } from "../utils/getCapitalize";
 const TablesTable = () => {
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
-  const [showSellModal, setShowSellModal] = useState(false);
-  const dataSelected = useRef();
+  const [showEditModal, setShowEditModal] = useState(false);
+  const dataEditSelected = useRef({});
+  const dataDeleteSelected = useRef(" ");
   // delete product
   // 1. open confirm delete modal
   const openDeleteConfirmModal = (data) => {
-    dataSelected.current = data;
+    dataDeleteSelected.current = data.productName;
     setShowDeleteConfirmModal(true);
   };
   // 2. if yes, delete product
   const deleteProduct = () => {
-    console.log("data deleted " + dataSelected.current);
+    console.log("data deleted " + dataDeleteSelected.current);
     setShowDeleteConfirmModal(false);
   };
-  // sell product
-  // 1. open sell modal
-  const sellButtonHandle = (data) => {
-    dataSelected.current = data;
-    setShowSellModal(true);
+  // edit product
+  const openEditModal = (data) => {
+    dataEditSelected.current = data;
+    setShowEditModal(true);
   };
-  // 2. sell product
-  const sellProduct = (quantity) => {
-    console.log("sell product", dataSelected.current, quantity);
-    setShowSellModal(false);
-  };
-
   return (
     <>
       <ConfirmModal
         showModal={showDeleteConfirmModal}
         closeModal={() => setShowDeleteConfirmModal(false)}
-        title="Are You Sure to Delete?"
+        title={`Are You Sure to Delete  ${getCapitalize(
+          dataDeleteSelected.current
+        )} ?`}
         yesAction={deleteProduct}
       />
-
-      <SellModal
-        showModal={showSellModal}
-        closeModal={() => setShowSellModal(false)}
-        yesAction={(quantity) => sellProduct(quantity)}
+      <EditModal
+        showModal={showEditModal}
+        closeModal={() => setShowEditModal(false)}
+        data={dataEditSelected.current}
       />
       <Container className="c-bg-2 box-shadow rounded  p-0 overflow-hidden">
         <Table responsive className="table-product w-100 m-0 bg-transparent ">
@@ -57,8 +53,10 @@ const TablesTable = () => {
               <th style={{ minWidth: "100px" }}>Category</th>
               <th style={{ minWidth: "100px" }}>Supplier</th>
               <th>Quantity</th>
-              <th style={{ minWidth: "100px" }}>Price</th>
-              <th style={{ minWidth: "100px" }}>Total Price</th>
+              <th style={{ minWidth: "100px" }}>Order Price</th>
+              <th style={{ minWidth: "100px" }}>Sell Price</th>
+              <th style={{ minWidth: "100px" }}>Total Order Price</th>
+              <th style={{ minWidth: "100px" }}>Total Sell Price</th>
               <th></th>
             </tr>
           </thead>
@@ -72,21 +70,28 @@ const TablesTable = () => {
                   <td>{data.category}</td>
                   <td>{data.supplier}</td>
                   <td style={{ textAlign: "center" }}>{data.quantity}</td>
-                  <td>{data.price}</td>
-                  <td>{data.totalPrice}</td>
-                  <td className="action">
-                    <IconButton
-                      size="small"
-                      onClick={() => sellButtonHandle(data.productId)}
+                  <td>{data.orderPrice}</td>
+                  <td>{data.sellPrice}</td>
+                  <td>{data.totalOrderPrice}</td>
+                  <td>{data.totalSellPrice}</td>
+                  <td className="action d-flex gap-2">
+                    <MuiButton
+                      variant="contained"
+                      color="warning"
+                      j
+                      sx={{ minWidth: 0, px: 1 }}
+                      onClick={() => openEditModal(data)}
                     >
-                      <CurrencyDollar />
-                    </IconButton>
-                    <IconButton
-                      size="small"
-                      onClick={() => openDeleteConfirmModal(data.productId)}
+                      <Pencil />
+                    </MuiButton>
+                    <MuiButton
+                      variant="contained"
+                      color="error"
+                      sx={{ minWidth: 0, px: 1 }}
+                      onClick={() => openDeleteConfirmModal(data)}
                     >
                       <Trash />
-                    </IconButton>
+                    </MuiButton>
                   </td>
                 </tr>
               );

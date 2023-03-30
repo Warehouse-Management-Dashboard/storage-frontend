@@ -24,6 +24,7 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
       />
       <Nav
         className={`side-bar vstack position-fixed top-0 bottom-0 center c-bg-2 ${sideBarClassName}`}
+        style={{ zIndex: 1100 }}
       >
         <div className="side-bar-logo d-flex justify-content-center align-items-center bottom-line position-relative">
           <h1>LOGO</h1>

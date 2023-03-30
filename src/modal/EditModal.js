@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
@@ -11,20 +11,34 @@ import ConfirmModal from "./ConfirmModal";
 import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import InputAdornment from "@mui/material/InputAdornment";
-const OrderModal = ({ showModal, closeModal }) => {
+import { getCapitalize } from "../utils/getCapitalize";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+const categorySelection = ["laptop", "smartphone", "smartwatch"];
+const EditModal = ({ showModal, closeModal, data }) => {
   const [showOrderConfirmModal, setShowOrderConfirmModal] = useState(false);
   const [productName, setProductName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
   const [supplier, setSupplier] = useState("");
-  const [orderPrice, setOrderPrice] = useState("");
-  const [priceToSell, setPriceToSell] = useState("");
+  const [orderPrice, setOrderPrice] = useState();
+  const [sellPrice, setSellPrice] = useState();
+  useEffect(() => {
+    setProductName(data.productName);
+    setQuantity(data.quantity);
+    setCategory(data.category);
+    setSupplier(data.supplier);
+    setOrderPrice(data.orderPrice);
+    setSellPrice(data.sellPrice);
+  }, [data]);
   return (
     <>
       <ConfirmModal
         showModal={showOrderConfirmModal}
         closeModal={() => setShowOrderConfirmModal(false)}
-        title="Are You Sure to Order?"
+        title="Are You Sure to Edit?"
         yesAction={() => {
           setShowOrderConfirmModal(false);
         }}
@@ -51,7 +65,7 @@ const OrderModal = ({ showModal, closeModal }) => {
             }}
           >
             <Typography variant="body1" color="white">
-              Order Product
+              Edit {getCapitalize(data.productName)}
             </Typography>
             <IconButton onClick={closeModal}>
               <X />
@@ -60,13 +74,35 @@ const OrderModal = ({ showModal, closeModal }) => {
 
           <Divider />
           <Stack sx={{ mt: 2 }} spacing={2}>
+            <TextField
+              label="Product Name"
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
+              sx={{ width: "100%" }}
+            />
+
+            <TextField
+              label="Supplier"
+              value={supplier}
+              onChange={(e) => setSupplier(e.target.value)}
+              sx={{ width: "100%" }}
+            />
             <Stack direction="row" gap={2}>
-              <TextField
-                label="Product Name"
-                value={productName}
-                onChange={(e) => setProductName(e.target.value)}
-                sx={{ width: "100%" }}
-              />
+              <FormControl sx={{ minWidth: 120, width: "100%" }}>
+                <InputLabel id="category-select-label">Category</InputLabel>
+                <Select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  label="Category"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {categorySelection.map((item) => {
+                    return <MenuItem value={item}>{item}</MenuItem>;
+                  })}
+                </Select>
+              </FormControl>
               <TextField
                 label="Quantity"
                 value={quantity}
@@ -78,20 +114,6 @@ const OrderModal = ({ showModal, closeModal }) => {
                     event.preventDefault();
                   }
                 }}
-              />
-            </Stack>
-            <Stack direction="row" gap={2}>
-              <TextField
-                label="Category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                sx={{ width: "100%" }}
-              />
-              <TextField
-                label="Supplier"
-                value={supplier}
-                onChange={(e) => setSupplier(e.target.value)}
-                sx={{ width: "100%" }}
               />
             </Stack>
             <Stack direction="row" gap={2}>
@@ -113,8 +135,8 @@ const OrderModal = ({ showModal, closeModal }) => {
               />
               <TextField
                 label="Price to Sell"
-                value={priceToSell}
-                onChange={(e) => setPriceToSell(e.target.value)}
+                value={sellPrice}
+                onChange={(e) => setSellPrice(e.target.value)}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">Rp</InputAdornment>
@@ -152,4 +174,4 @@ const OrderModal = ({ showModal, closeModal }) => {
   );
 };
 
-export default OrderModal;
+export default EditModal;
