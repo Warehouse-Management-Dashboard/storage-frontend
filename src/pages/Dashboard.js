@@ -11,7 +11,6 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { getPrice } from "../utils/getPrice";
 import { pieData } from "../data/PieChart";
 import { lineData } from "../data/LineChart";
 import moment from "moment";
@@ -29,6 +28,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { Link } from "react-router-dom";
+import { Cash, GraphDownArrow, GraphUpArrow } from "react-bootstrap-icons";
 ChartJS.register(
   ArcElement,
   Tooltip,
@@ -63,9 +63,24 @@ const Dashboard = () => {
   return (
     <Container className="py-3 px-4">
       <div className="gap-3 d-flex flex-wrap mb-3">
-        <TotalCard title={"Sold"} amount={50} amountDesc={"This month"} />
-        <TotalCard title={" Order"} amount={35} amountDesc={"This month"} />
-        <TotalCard title={"Total Items"} amount={8} />
+        <TotalCard
+          title={"Profit"}
+          price={2000000}
+          Icon={Cash}
+          color="primary.main"
+        />
+        <TotalCard
+          title={"Sold"}
+          price={3000000}
+          Icon={GraphDownArrow}
+          color="success.main"
+        />
+        <TotalCard
+          title={"Order"}
+          price={2000000}
+          Icon={GraphUpArrow}
+          color="error.main"
+        />
       </div>
 
       <Box
@@ -75,7 +90,7 @@ const Dashboard = () => {
         <Box>
           <div className="c-bg-2 rounded box-shadow p-3 mb-3 ">
             <div className="bottom-line mb-3 d-flex justify-content-between align-items-center ">
-              <h5 className="h5 ">Finance in This Month</h5>
+              <h5 className="h5 ">Product Report</h5>
               <FormControl
                 sx={{ minWidth: 120, transform: "translateY(-8px)" }}
                 size="small"
@@ -114,8 +129,8 @@ const Dashboard = () => {
                   style={{ minWidth: 150 }}
                 >
                   <span>
-                    <h6>Profit</h6>
-                    <span className="h4 text-white  ">{getPrice(1000000)}</span>
+                    <h6>Product Total</h6>
+                    <h4 className="h4 text-white text-center ">100</h4>
                   </span>
                 </div>
                 <div
@@ -123,8 +138,8 @@ const Dashboard = () => {
                   style={{ minWidth: 150 }}
                 >
                   <span>
-                    <h6>Sold</h6>
-                    <span className="h4 text-white  ">{getPrice(3000000)}</span>
+                    <h6>Product Sold</h6>
+                    <h4 className="h4 text-white text-center ">300</h4>
                   </span>
                 </div>
                 <div
@@ -132,8 +147,8 @@ const Dashboard = () => {
                   style={{ minWidth: 200 }}
                 >
                   <span>
-                    <h6>Order</h6>
-                    <span className="h4 text-white  ">{getPrice(2000000)}</span>
+                    <h6>Product Ordered</h6>
+                    <h4 className="h4 text-white  text-center">200</h4>
                   </span>
                 </div>
               </Box>
@@ -141,7 +156,7 @@ const Dashboard = () => {
           </div>
           <div className="c-bg-2 rounded box-shadow p-3">
             <div className="bottom-line mb-3 d-flex justify-content-between align-items-center">
-              <h5 className="h5">Finance in One Year</h5>
+              <h5 className="h5">Finance Report</h5>
               <FormControl
                 sx={{ minWidth: 120, transform: "translateY(-8px)" }}
                 size="small"
