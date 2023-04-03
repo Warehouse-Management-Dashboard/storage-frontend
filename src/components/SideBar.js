@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Nav, Stack } from "react-bootstrap";
 import "../assets/stylesheet/side-bar.css";
 import { NavLink } from "react-router-dom";
@@ -13,15 +13,9 @@ import {
 } from "react-bootstrap-icons";
 import { ArrowLeft } from "react-bootstrap-icons";
 import Typography from "@mui/material/Typography";
-import OrderModal from "../modal/OrderModal";
 const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
-  const [showOrderModal, setShowOrderModal] = useState(false);
   return (
     <>
-      <OrderModal
-        showModal={showOrderModal}
-        closeModal={() => setShowOrderModal(false)}
-      />
       <Nav
         className={`side-bar vstack position-fixed top-0 bottom-0 center c-bg-2 ${sideBarClassName}`}
         style={{ zIndex: 1100 }}
@@ -74,20 +68,21 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
           >
             ACTION
           </Typography>
-          <Nav.Item
-            className="side-bar-item px-3 py-2"
-            onClick={() => setShowOrderModal(true)}
-          >
-            <div>
+          <Nav.Item className="side-bar-item">
+            <NavLink
+              className="nav-link"
+              to="/order-product"
+              state="Order Product"
+            >
               <Bag className="mb-1" />
               <p className="d-inline ms-2">Order Product</p>
-            </div>
+            </NavLink>
           </Nav.Item>
           <Nav.Item className="side-bar-item ">
             <NavLink
               className="nav-link"
               to="/sell-product"
-              state="Activity Log"
+              state="Sell Product"
             >
               <CurrencyDollar className="mb-1" />
               <p className="d-inline ms-2">Sell Product</p>

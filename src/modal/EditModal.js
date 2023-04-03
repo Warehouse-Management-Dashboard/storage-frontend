@@ -163,13 +163,13 @@ const EditModal = ({ showModal, closeModal, data }) => {
               variant="contained"
               color="secondary"
             >
-              No
+              Cancel
             </Button>
             <Button
               onClick={() => setShowOrderConfirmModal(true)}
               variant="contained"
             >
-              Yes
+              Submit
             </Button>
           </Box>
         </Paper>

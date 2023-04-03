@@ -4,6 +4,7 @@ import { Container, Table } from "react-bootstrap";
 import { Tag, Trash } from "react-bootstrap-icons";
 import ConfirmModal from "../modal/ConfirmModal";
 import { getCapitalize } from "../utils/getCapitalize";
+import AddCategoryModal from "../modal/AddCategoryModal";
 const categories = [
   { id: 1, category: "electronic" },
   { id: 2, category: "foods" },
@@ -13,18 +14,22 @@ const categories = [
 ];
 const Category = () => {
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const dataDeleteSelected = useRef(" ");
   const openDeleteConfirmModal = (data) => {
     dataDeleteSelected.current = data;
     setShowDeleteConfirmModal(true);
   };
-
   const deleteProduct = () => {
     console.log("data deleted " + dataDeleteSelected.current);
     setShowDeleteConfirmModal(false);
   };
   return (
     <>
+      <AddCategoryModal
+        showModal={showAddCategoryModal}
+        closeModal={() => setShowAddCategoryModal(false)}
+      />
       <ConfirmModal
         showModal={showDeleteConfirmModal}
         closeModal={() => setShowDeleteConfirmModal(false)}
@@ -66,7 +71,11 @@ const Category = () => {
             </tbody>
           </Table>
         </Container>
-        <Button variant="contained" endIcon={<Tag />}>
+        <Button
+          variant="contained"
+          endIcon={<Tag />}
+          onClick={() => setShowAddCategoryModal(true)}
+        >
           Add Category
         </Button>
       </div>
