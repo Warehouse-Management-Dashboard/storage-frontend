@@ -16,6 +16,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import { FormHelperText } from "@mui/material";
 const categorySelection = ["laptop", "smartphone", "smartwatch"];
 const EditModal = ({ showModal, closeModal, data }) => {
   const [showOrderConfirmModal, setShowOrderConfirmModal] = useState(false);
@@ -25,6 +26,14 @@ const EditModal = ({ showModal, closeModal, data }) => {
   const [supplier, setSupplier] = useState("");
   const [orderPrice, setOrderPrice] = useState();
   const [sellPrice, setSellPrice] = useState();
+  const [error, setError] = useState({
+    productName: { isError: false, helperText: "" },
+    quantity: { isError: false, helperText: "" },
+    category: { isError: false, helperText: "" },
+    supplier: { isError: false, helperText: "" },
+    orderPrice: { isError: false, helperText: "" },
+    sellPrice: { isError: false, helperText: "" },
+  });
   useEffect(() => {
     setProductName(data.productName);
     setQuantity(data.quantity);
@@ -33,6 +42,55 @@ const EditModal = ({ showModal, closeModal, data }) => {
     setOrderPrice(data.orderPrice);
     setSellPrice(data.sellPrice);
   }, [data]);
+  const submitHandle = () => {
+    if (
+      productName &&
+      quantity &&
+      category &&
+      supplier &&
+      orderPrice &&
+      sellPrice
+    ) {
+      setShowOrderConfirmModal(true);
+    } else {
+      if (!productName) {
+        setError((prev) => ({
+          ...prev,
+          productName: { isError: true, helperText: "required!" },
+        }));
+      }
+      if (!quantity) {
+        setError((prev) => ({
+          ...prev,
+          quantity: { isError: true, helperText: "required!" },
+        }));
+      }
+      if (!category) {
+        setError((prev) => ({
+          ...prev,
+          category: { isError: true, helperText: "required!" },
+        }));
+      }
+      if (!supplier) {
+        setError((prev) => ({
+          ...prev,
+          supplier: { isError: true, helperText: "required!" },
+        }));
+      }
+      if (!orderPrice) {
+        setError((prev) => ({
+          ...prev,
+          orderPrice: { isError: true, helperText: "required!" },
+        }));
+      }
+      if (!sellPrice) {
+        setError((prev) => ({
+          ...prev,
+          sellPrice: { isError: true, helperText: "required!" },
+        }));
+      }
+    }
+  };
   return (
     <>
       <ConfirmModal
@@ -77,22 +135,62 @@ const EditModal = ({ showModal, closeModal, data }) => {
             <TextField
               label="Product Name"
               value={productName}
-              onChange={(e) => setProductName(e.target.value)}
+              onChange={(e) => {
+                setProductName(e.target.value);
+                if (error.productName.isError) {
+                  setError((prev) => ({
+                    ...prev,
+                    productName: {
+                      isError: false,
+                      helperText: "",
+                    },
+                  }));
+                }
+              }}
               sx={{ width: "100%" }}
+              error={error.productName.isError}
+              helperText={error.productName.helperText}
             />
 
             <TextField
               label="Supplier"
               value={supplier}
-              onChange={(e) => setSupplier(e.target.value)}
+              onChange={(e) => {
+                setSupplier(e.target.value);
+                if (error.supplier.isError) {
+                  setError((prev) => ({
+                    ...prev,
+                    supplier: {
+                      isError: false,
+                      helperText: "",
+                    },
+                  }));
+                }
+              }}
               sx={{ width: "100%" }}
+              error={error.supplier.isError}
+              helperText={error.supplier.helperText}
             />
             <Stack direction="row" gap={2}>
-              <FormControl sx={{ minWidth: 120, width: "100%" }}>
+              <FormControl
+                sx={{ minWidth: 120, width: "100%" }}
+                error={error.category.isError}
+              >
                 <InputLabel id="category-select-label">Category</InputLabel>
                 <Select
                   value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                    if (error.category.isError) {
+                      setError((prev) => ({
+                        ...prev,
+                        category: {
+                          isError: false,
+                          helperText: "",
+                        },
+                      }));
+                    }
+                  }}
                   label="Category"
                 >
                   <MenuItem value="">
@@ -106,11 +204,23 @@ const EditModal = ({ showModal, closeModal, data }) => {
                     );
                   })}
                 </Select>
+                <FormHelperText>{error.category.helperText}</FormHelperText>
               </FormControl>
               <TextField
                 label="Quantity"
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) => {
+                  setQuantity(e.target.value);
+                  if (error.quantity.isError) {
+                    setError((prev) => ({
+                      ...prev,
+                      quantity: {
+                        isError: false,
+                        helperText: "",
+                      },
+                    }));
+                  }
+                }}
                 sx={{ width: 120 }}
                 inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                 onKeyPress={(event) => {
@@ -118,13 +228,26 @@ const EditModal = ({ showModal, closeModal, data }) => {
                     event.preventDefault();
                   }
                 }}
+                error={error.quantity.isError}
+                helperText={error.quantity.helperText}
               />
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
                 label="Order Price"
                 value={orderPrice}
-                onChange={(e) => setOrderPrice(e.target.value)}
+                onChange={(e) => {
+                  setOrderPrice(e.target.value);
+                  if (error.orderPrice.isError) {
+                    setError((prev) => ({
+                      ...prev,
+                      orderPrice: {
+                        isError: false,
+                        helperText: "",
+                      },
+                    }));
+                  }
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">Rp</InputAdornment>
@@ -136,11 +259,24 @@ const EditModal = ({ showModal, closeModal, data }) => {
                     event.preventDefault();
                   }
                 }}
+                error={error.orderPrice.isError}
+                helperText={error.orderPrice.helperText}
               />
               <TextField
                 label="Price to Sell"
                 value={sellPrice}
-                onChange={(e) => setSellPrice(e.target.value)}
+                onChange={(e) => {
+                  setSellPrice(e.target.value);
+                  if (error.sellPrice.isError) {
+                    setError((prev) => ({
+                      ...prev,
+                      sellPrice: {
+                        isError: false,
+                        helperText: "",
+                      },
+                    }));
+                  }
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">Rp</InputAdornment>
@@ -152,6 +288,8 @@ const EditModal = ({ showModal, closeModal, data }) => {
                     event.preventDefault();
                   }
                 }}
+                error={error.sellPrice.isError}
+                helperText={error.sellPrice.helperText}
               />
             </Stack>
           </Stack>
@@ -165,10 +303,7 @@ const EditModal = ({ showModal, closeModal, data }) => {
             >
               Cancel
             </Button>
-            <Button
-              onClick={() => setShowOrderConfirmModal(true)}
-              variant="contained"
-            >
+            <Button onClick={submitHandle} variant="contained">
               Submit
             </Button>
           </Box>
