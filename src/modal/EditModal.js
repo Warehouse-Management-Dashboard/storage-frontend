@@ -16,7 +16,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import { FormHelperText } from "@mui/material";
+import FormHelperText from "@mui/material/FormHelperText";
 const categorySelection = ["laptop", "smartphone", "smartwatch"];
 const EditModal = ({ showModal, closeModal, data }) => {
   const [showOrderConfirmModal, setShowOrderConfirmModal] = useState(false);
@@ -146,6 +146,13 @@ const EditModal = ({ showModal, closeModal, data }) => {
                     },
                   }));
                 }
+              }}
+              onKeyDown={(event) => {
+                if (event.value.length === 0 && /\s/g.test(event.key)) {
+                  event.preventDefault();
+                }
+                if (event.value === 0) console.log(1);
+                console.log(event);
               }}
               sx={{ width: "100%" }}
               error={error.productName.isError}
