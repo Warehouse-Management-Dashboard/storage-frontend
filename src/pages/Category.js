@@ -6,11 +6,11 @@ import ConfirmModal from "../modal/ConfirmModal";
 import { getCapitalize } from "../utils/getCapitalize";
 import AddCategoryModal from "../modal/AddCategoryModal";
 const categories = [
-  { id: 1, category: "electronic" },
-  { id: 2, category: "foods" },
-  { id: 3, category: "drinks" },
-  { id: 4, category: "box" },
-  { id: 5, category: "davin" },
+  { id: 1231, category: "electronic" },
+  { id: 25345, category: "foods" },
+  { id: 35435, category: "drinks" },
+  { id: 443534, category: "box" },
+  { id: 5424324, category: "davin" },
 ];
 const Category = () => {
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
@@ -44,6 +44,7 @@ const Category = () => {
             <thead>
               <tr>
                 <th style={{ textAlign: "center", width: 40 }}>No</th>
+                <th style={{}}> Id</th>
                 <th style={{ width: "100%" }}> Category</th>
                 <th></th>
               </tr>
@@ -52,6 +53,7 @@ const Category = () => {
               {categories.map((category, i) => {
                 return (
                   <tr key={i}>
+                    <td>{i + 1}</td>
                     <td>{category.id}</td>
                     <td>{category.category}</td>
                     <td>

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Paper from "@mui/material/Paper";
-import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
