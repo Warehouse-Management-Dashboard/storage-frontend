@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "@mui/material/Button";
 import { Cart2, Plus, Trash } from "react-bootstrap-icons";
@@ -12,69 +12,86 @@ const SellProduct = () => {
   const addInput = () => {
     setInputs((prev) => [...prev, { productName: "", quantity: 0 }]);
   };
-  // useEffect(() => {
-  //   console.log(inputs);
-  // }, [inputs]);
+
+  const deleteInput = (i) => {
+    setInputs((prev) => {
+      const newState = [...prev];
+      newState.splice(i, 1);
+      return newState;
+    });
+  };
+  const handleProductNameInputChange = (e, value, i) => {
+    setInputs((prev) => {
+      const array = [...prev];
+      array[i].productName = value;
+      return array;
+    });
+  };
+  const handleQuantityInputChange = (e, i) => {
+    setInputs((prev) => {
+      const array = [...prev];
+      array[i].quantity = e.target.value;
+      return array;
+    });
+  };
+  // console.log(inputs);
+  // const filterOptions = () => {
+  //   const filterItems = inputs.map((input) => input.productName);
+  //   const result = top100Films.filter(
+  //     (option) => !filterItems.some((item) => option.title === item)
+  //   );
+  //   return result;
+  // };
+  // filterOptions();
   return (
     <div className="px-4 py-3">
       <Container className="c-bg-2 box-shadow rounded  p-3 overflow-hidden">
         <Stack sx={{ mb: 3, gap: 2 }}>
-          {inputs.map((input, i) => (
-            <Box sx={{ display: "flex", gap: 2 }} key={i}>
-              <Autocomplete
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => (
-                  <TextField {...params} label="Product Name" />
-                )}
-                size="small"
-                sx={{ width: "100%" }}
-                onInputChange={(e) => {
-                  console.log(e.target.textContent == true);
-                  if (e.target.textContent) {
-                    setInputs((prev) => {
-                      const array = [...prev];
-                      array[i].productName = e.target.textContent;
-                      return array;
-                    });
-                  }
-                }}
-                inputValue={input.productName}
-              />
-              <TextField
-                value={input.count}
-                onChange={(e) =>
-                  setInputs((prev) => {
-                    const array = [...prev];
-                    array[i].quantity = e.target.value;
-                    return array;
-                  })
-                }
-                label="Quantity"
-                size="small"
-                onKeyPress={(event) => {
-                  if (!/[0-9]/.test(event.key)) {
-                    event.preventDefault();
-                  }
-                }}
-              />
-              <Button
-                variant="contained"
-                sx={{
-                  minWidth: 32,
-                }}
-                color="error"
-                onClick={() =>
-                  setInputs((prev) => {
-                    const newState = [...prev];
-                    newState.splice(i);
-                    return newState;
-                  })
-                }
-              >
-                <Trash style={{ transform: "scale(1.5)" }} />
-              </Button>
-            </Box>
-          ))}
+          {inputs.map(({ productName, quantity }, i) => {
+            return (
+              <Box sx={{ display: "flex", gap: 2 }} key={i}>
+                <Autocomplete
+                  // filterOptions={(option, state) =>
+                  //   console.log("ini option", option, "ini state", state)
+                  // }
+                  options={top100Films.map((option) => option.title)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Product Name"
+                      value={productName}
+                    />
+                  )}
+                  size="small"
+                  sx={{ width: "100%" }}
+                  onInputChange={(e, value) => {
+                    handleProductNameInputChange(e, value, i);
+                  }}
+                />
+                <TextField
+                  value={quantity}
+                  onChange={(e) => handleQuantityInputChange(e, i)}
+                  label="Quantity"
+                  size="small"
+                  onKeyPress={(event) => {
+                    if (!/[0-9]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  sx={{
+                    minWidth: 32,
+                  }}
+                  color="error"
+                  onClick={() => deleteInput(i)}
+                >
+                  <Trash style={{ transform: "scale(1.5)" }} />
+                </Button>
+              </Box>
+            );
+          })}
         </Stack>
         <Stack direction="row" spacing={2} justifyContent="center">
           <Button
