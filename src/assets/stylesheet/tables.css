@@ -1,7 +1,9 @@
+.table-product td:first-child {
+  text-align: center;
+}
 .table-product thead {
   color: #adb5bd !important;
   background-color: #333a52;
-  padding-inline: 8px;
 }
 .table-product tr {
   color: #8a92a6 !important;

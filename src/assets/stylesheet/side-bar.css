@@ -3,6 +3,7 @@
   flex-wrap: nowrap !important  ;
   box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15);
   z-index: 9999;
+  cursor: pointer;
 }
 
 .side-bar-logo {
@@ -22,7 +23,9 @@
 .side-bar-item .nav-link:hover {
   color: #fff !important;
 }
-
+.side-bar-item:hover {
+  color: #fff !important;
+}
 .side-bar-item:has(.active) {
   background-color: #3a57e8;
 }
