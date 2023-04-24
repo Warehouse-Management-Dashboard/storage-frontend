@@ -47,7 +47,7 @@ const ActivityLog = () => {
   }, [dispatch, filterByAction, date]);
 
   return (
-    <div className="py-3 px-4 ">
+    <div className="py-3 px-4 vstack gap-3">
       <Container className="  vstack gap-3 p-0 ">
         <div className="d-flex justify-content-end p-3 c-bg-2 box-shadow rounded gap-3  flex-wrap">
           <FormControl size="small">
