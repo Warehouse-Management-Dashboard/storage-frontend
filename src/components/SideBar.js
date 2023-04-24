@@ -92,7 +92,11 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
 
         <div className="side-bar-logout p-3">
           <Nav.Item className="side-bar-item ">
-            <NavLink className="nav-link" to="/log-out">
+            <NavLink
+              className="nav-link"
+              to="/log-out"
+              onClick={() => localStorage.clear("token")}
+            >
               <BoxArrowRight className="mb-1" />
               <p className="d-inline ms-2">Log Out</p>
             </NavLink>

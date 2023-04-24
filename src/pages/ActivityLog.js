@@ -1,6 +1,6 @@
 import moment from "moment";
 import "../assets/stylesheet/activitylog.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Table, Button, ButtonGroup } from "react-bootstrap";
 import datas from "../data.json";
 import "../assets/stylesheet/tables.css";
@@ -11,11 +11,41 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
-const action = ["post", "delete"];
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAdminLogs } from "../redux/slices/adminLogsSlice";
+import { TextField } from "@mui/material";
+const action = ["CREATE", "UPDATE", "DELETE"];
 const admin = ["davin lim", "davin kyun kyun", "davin kun", "davin saja"];
 const ActivityLog = () => {
   const [filterByAction, setFilterByAction] = useState("");
   const [filterByAdmin, setFilterByAdmin] = useState("");
+
+  const [date, setDate] = useState();
+
+  const changeDate = (newDate) => {
+    if (newDate) {
+      setDate(newDate);
+    }
+  };
+  console.log(date);
+
+  const dispatch = useDispatch();
+
+  const adminLogs = useSelector((state) => state.adminLogs);
+
+  console.log(filterByAction);
+
+  useEffect(() => {
+    dispatch(
+      fetchAdminLogs({
+        limit: 1000,
+        offset: 0,
+        action: filterByAction,
+        date: date ? moment(date._d).format("YYYY-MM-DD") : "",
+      })
+    );
+  }, [dispatch, filterByAction, date]);
+
   return (
     <div className="py-3 px-4 ">
       <Container className="  vstack gap-3 p-0 ">
@@ -70,6 +100,11 @@ const ActivityLog = () => {
                 "& > div": { height: 40 },
                 maxWidth: 200,
               }}
+              value={date}
+              inputFormat="yyyy/MM/dd"
+              views={["year", "month", "day"]}
+              mask="____/__/__"
+              onChange={changeDate}
             />
           </LocalizationProvider>
         </div>
@@ -89,30 +124,27 @@ const ActivityLog = () => {
             </tr>
           </thead>
           <tbody>
-            {datas.map((data, i) => {
+            {adminLogs.data.map((log, i) => {
               return (
                 <tr key={i}>
                   <td>{i + 1}</td>
-                  <td>Davin Lim</td>
-                  <td>232341</td>
+                  <td>{log.admin.email}</td>
+                  <td>{log.admin.id}</td>
                   <td>
                     <span className="fs-6">
                       {moment().format("DD MMMM YYYY, HH:mm")}
                     </span>
                   </td>
 
-                  <td>Update</td>
-                  <td>
-                    Admin with id 2 just assigned "Josua Yoprisyanto" (1203)
-                    into "PULSE Basketball" activity (18)
-                  </td>
+                  <td>{log.action_name}</td>
+                  <td>{log.action_description}</td>
                 </tr>
               );
             })}
           </tbody>
         </Table>
       </Container>
-      <ButtonGroup className="table-navigate-button align-self-center">
+      <ButtonGroup className="table-navigate-button align-self-center mt-3">
         <Button>prev</Button>
         <Button className="active">1</Button>
         <Button>2</Button>
