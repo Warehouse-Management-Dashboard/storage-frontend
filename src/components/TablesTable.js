@@ -74,24 +74,27 @@ const TablesTable = () => {
                   <td>{data.sellPrice}</td>
                   <td>{data.totalOrderPrice}</td>
                   <td>{data.totalSellPrice}</td>
-                  <td className="action d-flex gap-2">
-                    <MuiButton
-                      variant="contained"
-                      color="warning"
-                      j
-                      sx={{ minWidth: 0, px: 1 }}
-                      onClick={() => openEditModal(data)}
-                    >
-                      <Pencil />
-                    </MuiButton>
-                    <MuiButton
-                      variant="contained"
-                      color="error"
-                      sx={{ minWidth: 0, px: 1 }}
-                      onClick={() => openDeleteConfirmModal(data)}
-                    >
-                      <Trash />
-                    </MuiButton>
+                  <td>
+                    <div className="d-flex gap-2">
+                      {" "}
+                      <MuiButton
+                        variant="contained"
+                        color="warning"
+                        j
+                        sx={{ minWidth: 0, px: 1 }}
+                        onClick={() => openEditModal(data)}
+                      >
+                        <Pencil />
+                      </MuiButton>
+                      <MuiButton
+                        variant="contained"
+                        color="error"
+                        sx={{ minWidth: 0, px: 1 }}
+                        onClick={() => openDeleteConfirmModal(data)}
+                      >
+                        <Trash />
+                      </MuiButton>
+                    </div>
                   </td>
                 </tr>
               );

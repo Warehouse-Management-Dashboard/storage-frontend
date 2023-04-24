@@ -15,11 +15,6 @@
 .table-product th {
   border-color: #30384f;
 }
-.table-product .action svg:hover {
-  color: white;
-  cursor: pointer;
-}
-
 .table-navigate-button button {
   background-color: #222738;
   border: 1px solid #30384f;
