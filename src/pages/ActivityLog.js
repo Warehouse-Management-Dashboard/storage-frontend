@@ -1,7 +1,13 @@
 import moment from "moment";
 import "../assets/stylesheet/activitylog.css";
 import React, { useEffect, useState } from "react";
-import { Container, Table, Button, ButtonGroup } from "react-bootstrap";
+import {
+  Container,
+  Table,
+  Button,
+  ButtonGroup,
+  Spinner,
+} from "react-bootstrap";
 import datas from "../data.json";
 import "../assets/stylesheet/tables.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -27,13 +33,12 @@ const ActivityLog = () => {
       setDate(newDate);
     }
   };
-  console.log(date);
 
   const dispatch = useDispatch();
 
   const adminLogs = useSelector((state) => state.adminLogs);
 
-  console.log(filterByAction);
+  console.log(adminLogs);
 
   useEffect(() => {
     dispatch(
@@ -48,7 +53,7 @@ const ActivityLog = () => {
 
   return (
     <div className="py-3 px-4 vstack gap-3">
-      <Container className="  vstack gap-3 p-0 ">
+      <Container className="vstack gap-3 p-0 ">
         <div className="d-flex justify-content-end p-3 c-bg-2 box-shadow rounded gap-3  flex-wrap">
           <FormControl size="small">
             <InputLabel id="FilterByAdmin-select-label">Admin</InputLabel>
@@ -109,40 +114,44 @@ const ActivityLog = () => {
           </LocalizationProvider>
         </div>
 
-        <Table
-          responsive
-          className="table-product w-100 mb-0 c-bg-2 box-shadow rounded overflow-hidden"
-        >
-          <thead>
-            <tr>
-              <th style={{ width: "object-fit" }}>No</th>
-              <th style={{ minWidth: "100px" }}>Admin</th>
-              <th style={{ minWidth: "100px" }}>id</th>
-              <th style={{ minWidth: "200px" }}>Date</th>
-              <th style={{ minWidth: "100px" }}>Action</th>
-              <th style={{ minWidth: "400px" }}>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {adminLogs.data.map((log, i) => {
-              return (
-                <tr key={i}>
-                  <td>{i + 1}</td>
-                  <td>{log.admin.email}</td>
-                  <td>{log.admin.id}</td>
-                  <td>
-                    <span className="fs-6">
-                      {moment().format("DD MMMM YYYY, HH:mm")}
-                    </span>
-                  </td>
+        {adminLogs.isLoading ? (
+          <Spinner />
+        ) : (
+          <Table
+            responsive
+            className="table-product w-100 mb-0 c-bg-2 box-shadow rounded overflow-hidden"
+          >
+            <thead>
+              <tr>
+                <th style={{ width: "object-fit" }}>No</th>
+                <th style={{ minWidth: "100px" }}>Admin</th>
+                <th style={{ minWidth: "100px" }}>id</th>
+                <th style={{ minWidth: "200px" }}>Date</th>
+                <th style={{ minWidth: "100px" }}>Action</th>
+                <th style={{ minWidth: "400px" }}>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {adminLogs.data.map((log, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>{log.admin.email}</td>
+                    <td>{log.admin.id}</td>
+                    <td>
+                      <span className="fs-6">
+                        {moment().format("DD MMMM YYYY, HH:mm")}
+                      </span>
+                    </td>
 
-                  <td>{log.action_name}</td>
-                  <td>{log.action_description}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+                    <td>{log.action_name}</td>
+                    <td>{log.action_description}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        )}
       </Container>
       <ButtonGroup className="table-navigate-button align-self-center mt-3">
         <Button>prev</Button>

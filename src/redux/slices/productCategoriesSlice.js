@@ -15,10 +15,10 @@ export const productCategoriesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(createProductCategory.pending, (state, action) => {
+    builder.addCase(fetchProductCategory.pending, (state, action) => {
       return { ...state, isLoading: true };
     });
-    builder.addCase(createProductCategory.fulfilled, (_, action) => {
+    builder.addCase(fetchProductCategory.fulfilled, (_, action) => {
       return { ...action.payload, isLoading: false };
     });
   },
@@ -35,10 +35,32 @@ export const createProductCategory = createAsyncThunk(
   }
 );
 
-export const fetchProductCategories = createAsyncThunk(
+export const fetchProductCategory = createAsyncThunk(
   `${name}/get`,
   async (props) => {
-    //   const response = await axios.fetchProductCa(props);
-    //   return response.data;
+    const response = await axios.fetchProductCategory(props);
+    return response.data;
+  }
+);
+
+export const fetchProductCategoryDetail = createAsyncThunk(
+  `${name}/detail`,
+  async (id) => {
+    const response = await axios.fetchProductCategoryDetail(id);
+    return response.data;
+  }
+);
+export const updateProductCategory = createAsyncThunk(
+  `${name}/update`,
+  async ({ id, name }) => {
+    const response = await axios.updateProductCategory({ id, name });
+    return response.data;
+  }
+);
+export const deleteProductCategory = createAsyncThunk(
+  `${name}/delete`,
+  async (id) => {
+    const response = await axios.deleteProductCategory(id);
+    return response.data;
   }
 );

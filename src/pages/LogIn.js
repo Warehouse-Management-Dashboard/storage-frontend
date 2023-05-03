@@ -19,24 +19,21 @@ const Login = () => {
 
   const handleSignIn = async (e) => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_API_URL}/api/auth/login`,
-        {
+      await axios
+        .post(`${process.env.REACT_APP_SERVER_API_URL}/api/auth/login`, {
           email,
           password,
-        }
-      );
-      console.log(response.data);
+        })
+        .then((response) => {
+          localStorage.setItem("token", response.data.token);
 
-      localStorage.setItem("token", response.data.token);
-
-      navigate("/");
+          navigate("/");
+        });
     } catch (error) {
       console.log(error);
       setError(true);
     }
   };
-
   const token = getToken();
 
   if (token) {

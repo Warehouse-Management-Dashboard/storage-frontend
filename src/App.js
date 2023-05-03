@@ -63,7 +63,7 @@ function App() {
     getAdmin();
   }, [token]);
 
-  if (!isMe) {
+  if (!isMe && !token) {
     navigate("/log-in");
   }
 

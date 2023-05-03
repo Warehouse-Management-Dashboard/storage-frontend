@@ -35,8 +35,38 @@ export const createProducts = createAsyncThunk(
   }
 );
 
+export const updateProducts = createAsyncThunk(
+  `${name}/update`,
+  async ({ id, values }) => {
+    const response = await axios.updateProduct({ id, values });
+
+    return response.data;
+  }
+);
+
+export const deleteProduct = createAsyncThunk(`${name}/delete`, async (id) => {
+  const response = await axios.deleteProduct(id);
+
+  return response.data;
+});
+
 export const fetchProducts = createAsyncThunk(`${name}/get`, async (props) => {
   const response = await axios.fetchProduct(props);
+
+  return response.data;
+});
+
+export const fetchProductDetail = createAsyncThunk(
+  `${name}/detail`,
+  async (id) => {
+    const response = await axios.fetchProductDetail(id);
+
+    return response.data;
+  }
+);
+
+export const sellProduct = createAsyncThunk(`${name}/post`, async (props) => {
+  const response = await axios.sellProduct(props);
 
   return response.data;
 });

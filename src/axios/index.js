@@ -12,9 +12,13 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const createProduct = (props) => API.post(`/api/product/create`, props);
+const limitDefaultValue = 1000;
+
+// product
+export const createProduct = (values) =>
+  API.post(`/api/product/create`, values);
 export const fetchProduct = ({
-  limit,
+  limit = limitDefaultValue,
   offset,
   name,
   productCategoryId,
@@ -31,10 +35,29 @@ export const fetchProduct = ({
       ...(sortBy ? { sortBy: sortBy } : {}),
     },
   });
+export const fetchProductDetail = (id) => API.get(`/api/product/${id}`);
+export const deleteProduct = (id) => API.delete(`/api/product/delete/${id}`);
+export const updateProduct = ({ id, values }) =>
+  API.post(`/api/product/update/${id}`, values);
 
+// product category
 export const createProductCategory = ({ name }) =>
-  API.post("api/product-category/create", { name });
+  API.post("/api/product-category/create", { name });
+export const updateProductCategory = ({ id, name }) =>
+  API.post(`/api/product-category/${id}`, name);
+export const deleteProductCategory = (id) =>
+  API.delete(`/api/product-category/delete/${id}`);
+export const fetchProductCategory = ({ limit = limitDefaultValue, offset }) =>
+  API.get(`/api/product-category`, {
+    params: {
+      ...(limit ? { limit: limit } : {}),
+      ...(offset ? { offset: offset } : {}),
+    },
+  });
+export const fetchProductCategoryDetail = (id) =>
+  API.get(`/api/product-category/${id}`);
 
+// admin logs
 export const fetchAdminLogs = ({ limit, offset, action, adminId, date }) =>
   API.get("/api/admin-logs", {
     params: {
@@ -45,3 +68,10 @@ export const fetchAdminLogs = ({ limit, offset, action, adminId, date }) =>
       ...(date ? { date: date } : {}),
     },
   });
+
+// overview
+export const fetchOverview = () => API.get(`/api/overview/`);
+
+// sell Product
+
+export const sellProduct = () => API.post(`/api/product/sell`);

@@ -1,10 +1,12 @@
 import Button from "@mui/material/Button";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Tag, Trash } from "react-bootstrap-icons";
 import ConfirmModal from "../modal/ConfirmModal";
 import { getCapitalize } from "../utils/getCapitalize";
 import AddCategoryModal from "../modal/AddCategoryModal";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductCategory } from "../redux/slices/productCategoriesSlice";
 const categories = [
   { id: 1231, category: "electronic" },
   { id: 25345, category: "foods" },
@@ -24,6 +26,15 @@ const Category = () => {
     console.log("data deleted " + dataDeleteSelected.current);
     setShowDeleteConfirmModal(false);
   };
+
+  const dispatch = useDispatch();
+
+  const productCategory = useSelector((state) => state.productCategory);
+
+  useEffect(() => {
+    dispatch(fetchProductCategory({}));
+  }, [dispatch]);
+
   return (
     <>
       <AddCategoryModal
@@ -50,12 +61,14 @@ const Category = () => {
               </tr>
             </thead>
             <tbody>
-              {categories.map((category, i) => {
-                return (
+              {productCategory.isLoading ? (
+                <span>loading...</span>
+              ) : (
+                productCategory.data.map((category, i) => (
                   <tr key={i}>
                     <td>{i + 1}</td>
                     <td>{category.id}</td>
-                    <td>{category.category}</td>
+                    <td>{category.name}</td>
                     <td>
                       <Button
                         variant="contained"
@@ -68,8 +81,8 @@ const Category = () => {
                       </Button>
                     </td>
                   </tr>
-                );
-              })}
+                ))
+              )}
             </tbody>
           </Table>
         </Container>
