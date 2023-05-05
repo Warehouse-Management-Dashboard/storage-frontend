@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Container, Table, ButtonGroup, Button } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import datas from "../data.json";
 import { Pencil, Trash } from "react-bootstrap-icons";
 import "../assets/stylesheet/tables.css";

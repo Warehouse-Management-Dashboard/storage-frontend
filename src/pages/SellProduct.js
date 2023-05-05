@@ -12,8 +12,9 @@ const SellProduct = () => {
   const addInput = () => {
     setInputs((prev) => [...prev, { productName: "", quantity: 0 }]);
   };
-
+  const [customerName, setCustomerName] = useState("");
   const deleteInput = (i) => {
+    if (inputs.length === 1) return;
     setInputs((prev) => {
       const newState = [...prev];
       newState.splice(i, 1);
@@ -34,39 +35,73 @@ const SellProduct = () => {
       return array;
     });
   };
-  // console.log(inputs);
-  // const filterOptions = () => {
-  //   const filterItems = inputs.map((input) => input.productName);
-  //   const result = top100Films.filter(
-  //     (option) => !filterItems.some((item) => option.title === item)
-  //   );
-  //   return result;
-  // };
-  // filterOptions();
+  const filterOptionsAutocomplete = (options, state) => {
+    let newOptions = [];
+    options.forEach((option) => {
+      if (
+        option
+          .replace(",", "")
+          .toLowerCase()
+          .includes(state.inputValue.toLowerCase())
+      )
+        newOptions.push(option);
+    });
+    return newOptions.filter((option) => {
+      let isFilter = true;
+      inputs.forEach((input) => {
+        if (input.productName === option) isFilter = false;
+      });
+      return isFilter;
+    });
+  };
+  const checkAutocomplete = (e, reason, i) => {
+    if (reason === "blur") {
+      checkDataAvailableAutocomplete(e, reason, i);
+    }
+  };
+  const checkDataAvailableAutocomplete = (e, reason, i) => {
+    top100Films.forEach((option) => {
+      if (option.title === e.target.value) return;
+    });
+    setInputs((prev) => {
+      const array = [...prev];
+      array[i].productName = "";
+      return array;
+    });
+  };
   return (
     <div className="px-4 py-3">
+      <Container className="c-bg-2 box-shadow rounded  p-3 overflow-hidden mb-3">
+        <TextField
+          label="Customer name"
+          size="small"
+          sx={{ width: "100%" }}
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
+        />
+      </Container>
       <Container className="c-bg-2 box-shadow rounded  p-3 overflow-hidden">
         <Stack sx={{ mb: 3, gap: 2 }}>
           {inputs.map(({ productName, quantity }, i) => {
             return (
               <Box sx={{ display: "flex", gap: 2 }} key={i}>
                 <Autocomplete
-                  // filterOptions={(option, state) =>
-                  //   console.log("ini option", option, "ini state", state)
-                  // }
                   options={top100Films.map((option) => option.title)}
+                  filterOptions={(options, state) =>
+                    filterOptionsAutocomplete(options, state)
+                  }
                   renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Product Name"
-                      value={productName}
-                    />
+                    <TextField {...params} label="Product Name" />
                   )}
                   size="small"
                   sx={{ width: "100%" }}
                   onInputChange={(e, value) => {
                     handleProductNameInputChange(e, value, i);
                   }}
+                  inputValue={productName}
+                  freeSolo
+                  autoHighlight
+                  onClose={(e, reason) => checkAutocomplete(e, reason, i)}
                 />
                 <TextField
                   value={quantity}
