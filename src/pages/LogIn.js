@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Stack } from "react-bootstrap";
 import "../assets/stylesheet/login.css";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -17,6 +17,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
+  const [authSuccess, setAuthSuccess] = useState(false);
+
   const handleSignIn = async (e) => {
     try {
       await axios
@@ -25,9 +27,11 @@ const Login = () => {
           password,
         })
         .then(async (response) => {
-          await localStorage.setItem("token", response.data.token);
-          await navigate("/");
+          localStorage.setItem("token", response.data.token);
           window.location.reload();
+          setTimeout(() => {
+            navigate("/");
+          }, 0);
         });
     } catch (error) {
       console.log(error);
@@ -37,9 +41,11 @@ const Login = () => {
 
   const token = getToken();
 
-  if (token) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
   return (
     <div className="full-container position-relative">

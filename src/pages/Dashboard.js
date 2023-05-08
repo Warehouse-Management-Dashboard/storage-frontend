@@ -12,7 +12,7 @@ import {
   LineElement,
 } from "chart.js";
 import { getPieData } from "../data/PieChart";
-import { lineData } from "../data/LineChart";
+import { getLineData, lineData } from "../data/LineChart";
 import moment from "moment";
 import { Container, Spinner } from "react-bootstrap";
 import Box from "@mui/material/Box";
@@ -71,7 +71,7 @@ const Dashboard = () => {
     dispatch(fetchOverview({}));
     dispatch(
       fetchAdminLogs({
-        limit: 100000,
+        limit: 10,
       })
     );
   }, [dispatch]);
@@ -93,13 +93,13 @@ const Dashboard = () => {
         <TotalCard
           title={"Sold"}
           price={cardData.totalSold}
-          Icon={GraphDownArrow}
+          Icon={GraphUpArrow}
           color="success.main"
         />
         <TotalCard
           title={"Order"}
           price={cardData.totalOrdered}
-          Icon={GraphUpArrow}
+          Icon={GraphDownArrow}
           color="error.main"
         />
         <TotalCard
@@ -220,7 +220,7 @@ const Dashboard = () => {
               </FormControl>
             </div>
             <div className="">
-              <Line data={lineData} className="w-100" />
+              <Line data={getLineData(financeReport)} className="w-100" />
             </div>
           </div>
         </Box>
@@ -238,7 +238,7 @@ const Dashboard = () => {
                 padding: 0,
               },
             }}
-            style={{ height: 820, overflow: "auto" }}
+            style={{ height: 785, overflow: "auto" }}
           >
             {adminLogs.data.map((logs, i) => (
               <TimelineItem>
@@ -258,6 +258,12 @@ const Dashboard = () => {
               </TimelineItem>
             ))}
           </Timeline>
+          <Link
+            to="/activity-log"
+            style={{ alignSelf: "center", textDecoration: "none" }}
+          >
+            <Button>SEE MORE</Button>
+          </Link>
         </Box>
       </Box>
     </Container>

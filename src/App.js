@@ -63,9 +63,11 @@ function App() {
     getAdmin();
   }, [token]);
 
-  if (!isMe && !token) {
-    navigate("/log-in");
-  }
+  useEffect(() => {
+    if (!token) {
+      navigate("/log-in");
+    }
+  }, [token]);
 
   return (
     <div className="App">
