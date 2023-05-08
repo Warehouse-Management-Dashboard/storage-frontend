@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Container, Table, ButtonGroup, Button } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import datas from "../data.json";
 import { Pencil, Trash } from "react-bootstrap-icons";
 import "../assets/stylesheet/tables.css";
@@ -11,6 +11,7 @@ import { getPrice } from "../utils/getPrice";
 import { Pagination } from "@mui/material";
 
 const TablesTable = ({ products }) => {
+import TablePagination from "./TablePagination";
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const dataEditSelected = useRef({});
@@ -85,6 +86,13 @@ const TablesTable = ({ products }) => {
     );
   };
 
+
+  //---------table pagination------------//
+  const [currentPage, setCurrentPage] = useState(5);
+  const handleChangePage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <>
       <ConfirmModal
@@ -124,7 +132,13 @@ const TablesTable = ({ products }) => {
           </tbody>
         </Table>
       </Container>
-      <Pagination count={products.count} variant="outlined" />
+
+      <TablePagination
+        totalPages={30}
+        currentPage={currentPage}
+        onPageChange={(pageNumber) => handleChangePage(pageNumber)}
+      />
+
     </>
   );
 };
