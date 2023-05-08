@@ -50,13 +50,17 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
             </NavLink>
           </Nav.Item>
           <Nav.Item className="side-bar-item ">
-            <NavLink className="nav-link" to="/activity-log" state="Category">
+            <NavLink
+              className="nav-link"
+              to="/activity-log"
+              state="Activity Log"
+            >
               <Clipboard className="mb-1" />
               <p className="d-inline ms-2">Activity Log</p>
             </NavLink>
           </Nav.Item>
           <Nav.Item className="side-bar-item ">
-            <NavLink className="nav-link" to="/category" state="Activity Log">
+            <NavLink className="nav-link" to="/category" state="CATEGORY">
               <Tag className="mb-1" />
               <p className="d-inline ms-2">Category</p>
             </NavLink>
@@ -92,7 +96,11 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
 
         <div className="side-bar-logout p-3">
           <Nav.Item className="side-bar-item ">
-            <NavLink className="nav-link" to="/log-out">
+            <NavLink
+              className="nav-link"
+              to="/log-out"
+              onClick={() => localStorage.clear("token")}
+            >
               <BoxArrowRight className="mb-1" />
               <p className="d-inline ms-2">Log Out</p>
             </NavLink>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -11,6 +11,9 @@ import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import ConfirmModal from "../modal/ConfirmModal";
 import { Container } from "react-bootstrap";
+import { fetchProductCategory } from "../redux/slices/productCategoriesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { createProducts } from "../redux/slices/productsSlice";
 const categorySelection = ["laptop", "smartphone", "smartwatch"];
 const OrderProduct = () => {
   const [showOrderConfirmModal, setShowOrderConfirmModal] = useState(false);
@@ -28,6 +31,15 @@ const OrderProduct = () => {
     orderPrice: { isError: false, helperText: "" },
     sellPrice: { isError: false, helperText: "" },
   });
+
+  const dispatch = useDispatch();
+
+  const productCategory = useSelector((state) => state.productCategory);
+
+  useEffect(() => {
+    dispatch(fetchProductCategory({}));
+  }, [dispatch]);
+
   const submitHandle = () => {
     if (
       productName &&
@@ -77,6 +89,29 @@ const OrderProduct = () => {
       }
     }
   };
+
+  const handleSubmit = () => {
+    dispatch(
+      createProducts({
+        productName,
+        quantity,
+        productCategoryId: category.id,
+        supplier,
+        orderPrice,
+        sellPrice,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        setProductName();
+        setQuantity();
+        setCategory();
+        setSupplier();
+        setOrderPrice();
+        setSellPrice();
+        setShowOrderConfirmModal(false);
+      });
+  };
   return (
     <div className="px-4 py-3 vstack gap-3 align-items-center">
       <ConfirmModal
@@ -84,7 +119,7 @@ const OrderProduct = () => {
         closeModal={() => setShowOrderConfirmModal(false)}
         title={`Do You Want to Add ${productName}?`}
         yesAction={() => {
-          setShowOrderConfirmModal(false);
+          handleSubmit();
         }}
       />
 
@@ -161,10 +196,10 @@ const OrderProduct = () => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {categorySelection.map((item, i) => {
+                {productCategory.data.map((item, i) => {
                   return (
                     <MenuItem value={item} key={i}>
-                      {item}
+                      {item.name}
                     </MenuItem>
                   );
                 })}

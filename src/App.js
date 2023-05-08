@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import MainLayout from "./components/MainLayout";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import ActivityLog from "./pages/ActivityLog";
 import LogIn from "./pages/LogIn";
 import Tables from "./pages/Tables";
@@ -11,6 +11,8 @@ import { grey } from "@mui/material/colors";
 import SellProduct from "./pages/SellProduct";
 import Category from "./pages/Category";
 import OrderProduct from "./pages/OrderProduct";
+import axios from "axios";
+import { getToken } from "./utils/getToken";
 const theme = createTheme({
   palette: {
     mode: "dark",
@@ -35,7 +37,36 @@ const theme = createTheme({
     },
   },
 });
+
 function App() {
+  const [isMe, setIsMe] = useState(false);
+
+  const navigate = useNavigate();
+
+  const token = getToken();
+
+  useEffect(() => {
+    const getAdmin = async () => {
+      try {
+        await axios.get(`${process.env.REACT_APP_SERVER_API_URL}/api/auth`, {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        setIsMe(true);
+      } catch (error) {
+        setIsMe(false);
+        console.log(error);
+      }
+    };
+    getAdmin();
+  }, [token]);
+
+  if (!isMe && !token) {
+    navigate("/log-in");
+  }
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
