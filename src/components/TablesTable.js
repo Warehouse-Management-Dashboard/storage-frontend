@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Container, Table, ButtonGroup, Button } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import datas from "../data.json";
 import { Pencil, Trash } from "react-bootstrap-icons";
 import "../assets/stylesheet/tables.css";
@@ -7,6 +7,7 @@ import ConfirmModal from "../modal/ConfirmModal";
 import MuiButton from "@mui/material/Button";
 import EditModal from "../modal/EditModal";
 import { getCapitalize } from "../utils/getCapitalize";
+import TablePagination from "./TablePagination";
 const TablesTable = () => {
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -27,6 +28,11 @@ const TablesTable = () => {
   const openEditModal = (data) => {
     dataEditSelected.current = data;
     setShowEditModal(true);
+  };
+  //---------table pagination------------//
+  const [currentPage, setCurrentPage] = useState(5);
+  const handleChangePage = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
   return (
     <>
@@ -102,15 +108,11 @@ const TablesTable = () => {
           </tbody>
         </Table>
       </Container>
-      <ButtonGroup className="table-navigate-button align-self-center">
-        <Button>prev</Button>
-        <Button className="active">1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
-        <Button>next</Button>
-      </ButtonGroup>
+      <TablePagination
+        totalPages={30}
+        currentPage={currentPage}
+        onPageChange={(pageNumber) => handleChangePage(pageNumber)}
+      />
     </>
   );
 };
