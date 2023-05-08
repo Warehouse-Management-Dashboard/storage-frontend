@@ -73,7 +73,7 @@ export const fetchAdminLogs = ({ limit, offset, action, adminId, date }) =>
 export const fetchOverview = () => API.get(`/api/overview/`);
 
 // sell Product
-export const sellProduct = () => API.post(`/api/product/sell`);
+export const sellProduct = (values) => API.post(`/api/product/sell`, values);
 
 // admins
 export const fetchAdmins = () => API.get(`/api/admin`);

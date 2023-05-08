@@ -55,8 +55,6 @@ const ActivityLog = () => {
     dispatch(fetchAdmins({}));
   }, [dispatch]);
 
-  console.log(admins);
-
   return (
     <div className="py-3 px-4 vstack gap-3">
       <Container className="vstack gap-3 p-0 ">

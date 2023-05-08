@@ -11,10 +11,10 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { pieData } from "../data/PieChart";
+import { getPieData } from "../data/PieChart";
 import { lineData } from "../data/LineChart";
 import moment from "moment";
-import { Container } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 import Box from "@mui/material/Box";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem, { timelineItemClasses } from "@mui/lab/TimelineItem";
@@ -29,6 +29,10 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { Link } from "react-router-dom";
 import { Cash, GraphDownArrow, GraphUpArrow } from "react-bootstrap-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOverview } from "../redux/slices/overviewSlice";
+import { fetchAdminLogs } from "../redux/slices/adminLogsSlice";
+
 ChartJS.register(
   ArcElement,
   Tooltip,
@@ -54,30 +58,53 @@ const MONTH = [
 ];
 const YEAR = [2023, 2022, 2021, 2020];
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
+  const overviews = useSelector((state) => state.overviews);
+  const adminLogs = useSelector((state) => state.adminLogs);
+
+  const cardData = overviews.data.cardData;
+  const financeReport = overviews.data.financeReport;
+  const productReport = overviews.data.productReport;
+
+  useEffect(() => {
+    dispatch(fetchOverview({}));
+    dispatch(
+      fetchAdminLogs({
+        limit: 100000,
+      })
+    );
+  }, [dispatch]);
+
   useEffect(() => {
     ChartJS.defaults.borderColor = "#30384f";
     ChartJS.defaults.color = "#8a92a6";
   }, []);
   const [yearSelect, setYearSelect] = useState();
   const [monthSelect, setMonthSelect] = useState();
+
+  if (overviews.isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <Container className="py-3 px-4">
       <div className="gap-3 d-flex flex-wrap mb-3">
         <TotalCard
           title={"Sold"}
-          price={3000000}
+          price={cardData.totalSold}
           Icon={GraphDownArrow}
           color="success.main"
         />
         <TotalCard
           title={"Order"}
-          price={2000000}
+          price={cardData.totalOrdered}
           Icon={GraphUpArrow}
           color="error.main"
         />
         <TotalCard
           title={"Profit"}
-          price={2000000}
+          price={cardData.profit}
           Icon={Cash}
           color="primary.main"
         />
@@ -121,7 +148,7 @@ const Dashboard = () => {
                 className=" d-flex justify-content-center  bottom-line pb-3"
                 sx={{ height: 300 }}
               >
-                <Pie data={pieData} className="h-100" />
+                <Pie data={getPieData(productReport)} className="h-100" />
               </Box>
 
               <Box
@@ -134,7 +161,9 @@ const Dashboard = () => {
                 >
                   <span>
                     <h6>Product Total</h6>
-                    <h4 className="h4 text-white text-center ">100</h4>
+                    <h4 className="h4 text-white text-center ">
+                      {productReport.total}
+                    </h4>
                   </span>
                 </div>
                 <div
@@ -143,7 +172,9 @@ const Dashboard = () => {
                 >
                   <span>
                     <h6>Product Sold</h6>
-                    <h4 className="h4 text-white text-center ">300</h4>
+                    <h4 className="h4 text-white text-center ">
+                      {productReport.sold}
+                    </h4>
                   </span>
                 </div>
                 <div
@@ -152,7 +183,9 @@ const Dashboard = () => {
                 >
                   <span>
                     <h6>Product Ordered</h6>
-                    <h4 className="h4 text-white  text-center">200</h4>
+                    <h4 className="h4 text-white  text-center">
+                      {productReport.order}
+                    </h4>
                   </span>
                 </div>
               </Box>
@@ -205,90 +238,26 @@ const Dashboard = () => {
                 padding: 0,
               },
             }}
+            style={{ height: 820, overflow: "auto" }}
           >
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot />
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <span className="text-white fs-6">Add Items "Iphone"</span>
-                <br />
-                <span>{moment().format("DD MMMM YYYY, HH:mm")}</span>
-              </TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot />
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <span className="text-white fs-6">Add Items "Iphone"</span>
-                <br />
-                <span>{moment().format("DD MMMM YYYY, HH:mm")}</span>
-              </TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot />
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <span className="text-white fs-6">Add Items "Iphone"</span>
-                <br />
-                <span>{moment().format("DD MMMM YYYY, HH:mm")}</span>
-              </TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot />
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <span className="text-white fs-6">Add Items "Iphone"</span>
-                <br />
-                <span>{moment().format("DD MMMM YYYY, HH:mm")}</span>
-              </TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot />
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <span className="text-white fs-6">Add Items "Iphone"</span>
-                <br />
-                <span>{moment().format("DD MMMM YYYY, HH:mm")}</span>
-              </TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot />
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <span className="text-white fs-6">Add Items "Iphone"</span>
-                <br />
-                <span>{moment().format("DD MMMM YYYY, HH:mm")}</span>
-              </TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-              <TimelineSeparator>
-                <TimelineDot />
-              </TimelineSeparator>
-              <TimelineContent>
-                <span className="text-white fs-6">Add Items "Iphone"</span>
-                <br />
-                <span>{moment().format("DD MMMM YYYY, HH:mm")}</span>
-              </TimelineContent>
-            </TimelineItem>
+            {adminLogs.data.map((logs, i) => (
+              <TimelineItem>
+                <TimelineSeparator>
+                  <TimelineDot />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>
+                  <span className="text-white fs-6">
+                    {logs.action_description}
+                  </span>
+                  <br />
+                  <span>
+                    {moment(logs.created_at).format("DD MMMM YYYY, HH:mm")}
+                  </span>
+                </TimelineContent>
+              </TimelineItem>
+            ))}
           </Timeline>
-          <Link
-            to="/activity-log"
-            style={{ alignSelf: "center", textDecoration: "none" }}
-          >
-            <Button>SEE MORE</Button>
-          </Link>
         </Box>
       </Box>
     </Container>

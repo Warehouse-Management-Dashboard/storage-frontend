@@ -7,7 +7,7 @@ const initialState = {
   count: 0,
   currentPage: 1,
   data: [],
-  isLoading: false,
+  isLoading: true,
 };
 
 export const overviewSlice = createSlice({

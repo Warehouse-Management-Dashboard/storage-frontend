@@ -9,9 +9,9 @@ import EditModal from "../modal/EditModal";
 import { getCapitalize } from "../utils/getCapitalize";
 import { getPrice } from "../utils/getPrice";
 import { Pagination } from "@mui/material";
+import TablePagination from "./TablePagination";
 
 const TablesTable = ({ products }) => {
-import TablePagination from "./TablePagination";
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const dataEditSelected = useRef({});
@@ -86,7 +86,6 @@ import TablePagination from "./TablePagination";
     );
   };
 
-
   //---------table pagination------------//
   const [currentPage, setCurrentPage] = useState(5);
   const handleChangePage = (pageNumber) => {
@@ -138,7 +137,6 @@ import TablePagination from "./TablePagination";
         currentPage={currentPage}
         onPageChange={(pageNumber) => handleChangePage(pageNumber)}
       />
-
     </>
   );
 };
