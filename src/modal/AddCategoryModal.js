@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -9,10 +9,25 @@ import IconButton from "@mui/material/IconButton";
 import { X } from "react-bootstrap-icons";
 import TextField from "@mui/material/TextField";
 import ConfirmModal from "./ConfirmModal";
-const AddCategoryModal = ({ showModal, closeModal }) => {
+import { useDispatch } from "react-redux";
+import {
+  createProductCategory,
+  fetchProductCategory,
+  updateProductCategory,
+} from "../redux/slices/productCategoriesSlice";
+const AddCategoryModal = ({ showModal, closeModal, selectedCategory }) => {
   const [category, setCategory] = useState();
   const [error, setError] = useState({ isError: false, helperText: "" });
   const [showConfirmModal, setShowConfirmModal] = useState();
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setCategory(selectedCategory.name);
+    } else {
+      setCategory();
+    }
+  }, [selectedCategory]);
+
   const submitHandle = () => {
     if (category) {
       setShowConfirmModal(true);
@@ -24,11 +39,40 @@ const AddCategoryModal = ({ showModal, closeModal }) => {
       }));
     }
   };
+
+  const dispatch = useDispatch();
+
   const addCategory = () => {
-    console.log("add " + category);
-    setShowConfirmModal(false);
-    closeModal();
+    if (selectedCategory) {
+      dispatch(
+        updateProductCategory({
+          id: selectedCategory.id,
+          name: category,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          setCategory();
+          dispatch(fetchProductCategory({}));
+          setShowConfirmModal(false);
+          closeModal();
+        });
+    } else {
+      dispatch(
+        createProductCategory({
+          name: category,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          setCategory();
+          dispatch(fetchProductCategory({}));
+          setShowConfirmModal(false);
+          closeModal();
+        });
+    }
   };
+
   return (
     <>
       <ConfirmModal
@@ -57,7 +101,9 @@ const AddCategoryModal = ({ showModal, closeModal }) => {
               mb: 2,
             }}
           >
-            <Typography variant="body1">Add Category</Typography>
+            <Typography variant="body1">
+              {selectedCategory ? "Edit" : "Add"} Category
+            </Typography>
             <IconButton onClick={closeModal}>
               <X />
             </IconButton>

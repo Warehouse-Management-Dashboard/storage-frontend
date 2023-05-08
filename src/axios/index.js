@@ -44,7 +44,7 @@ export const updateProduct = ({ id, values }) =>
 export const createProductCategory = ({ name }) =>
   API.post("/api/product-category/create", { name });
 export const updateProductCategory = ({ id, name }) =>
-  API.post(`/api/product-category/${id}`, name);
+  API.put(`/api/product-category/update/${id}`, name);
 export const deleteProductCategory = (id) =>
   API.delete(`/api/product-category/delete/${id}`);
 export const fetchProductCategory = ({ limit = limitDefaultValue, offset }) =>
@@ -73,5 +73,7 @@ export const fetchAdminLogs = ({ limit, offset, action, adminId, date }) =>
 export const fetchOverview = () => API.get(`/api/overview/`);
 
 // sell Product
-
 export const sellProduct = () => API.post(`/api/product/sell`);
+
+// admins
+export const fetchAdmins = () => API.get(`/api/admin`);

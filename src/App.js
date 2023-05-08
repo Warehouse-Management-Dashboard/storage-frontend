@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import MainLayout from "./components/MainLayout";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import ActivityLog from "./pages/ActivityLog";
 import LogIn from "./pages/LogIn";
 import Tables from "./pages/Tables";

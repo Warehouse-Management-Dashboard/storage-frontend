@@ -19,12 +19,12 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAdminLogs } from "../redux/slices/adminLogsSlice";
-import { TextField } from "@mui/material";
+import { fetchAdmins } from "../redux/slices/adminSlice";
+import { Pagination } from "@mui/material";
 const action = ["CREATE", "UPDATE", "DELETE"];
-const admin = ["davin lim", "davin kyun kyun", "davin kun", "davin saja"];
 const ActivityLog = () => {
   const [filterByAction, setFilterByAction] = useState("");
-  const [filterByAdmin, setFilterByAdmin] = useState("");
+  const [filterByAdmin, setFilterByAdmin] = useState();
 
   const [date, setDate] = useState();
 
@@ -37,8 +37,7 @@ const ActivityLog = () => {
   const dispatch = useDispatch();
 
   const adminLogs = useSelector((state) => state.adminLogs);
-
-  console.log(adminLogs);
+  const admins = useSelector((state) => state.admins);
 
   useEffect(() => {
     dispatch(
@@ -47,9 +46,16 @@ const ActivityLog = () => {
         offset: 0,
         action: filterByAction,
         date: date ? moment(date._d).format("YYYY-MM-DD") : "",
+        adminId: filterByAdmin,
       })
     );
-  }, [dispatch, filterByAction, date]);
+  }, [dispatch, filterByAction, date, filterByAdmin]);
+
+  useEffect(() => {
+    dispatch(fetchAdmins({}));
+  }, [dispatch]);
+
+  console.log(admins);
 
   return (
     <div className="py-3 px-4 vstack gap-3">
@@ -68,10 +74,10 @@ const ActivityLog = () => {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              {admin.map((item, i) => {
+              {admins.data.map((item, i) => {
                 return (
-                  <MenuItem value={item} key={i}>
-                    {item}
+                  <MenuItem value={item.id} key={i}>
+                    {item.email}
                   </MenuItem>
                 );
               })}
@@ -140,7 +146,7 @@ const ActivityLog = () => {
                     <td>{log.admin.id}</td>
                     <td>
                       <span className="fs-6">
-                        {moment().format("DD MMMM YYYY, HH:mm")}
+                        {moment(log.created_at).format("DD MMMM YYYY, HH:mm")}
                       </span>
                     </td>
 
@@ -153,15 +159,7 @@ const ActivityLog = () => {
           </Table>
         )}
       </Container>
-      <ButtonGroup className="table-navigate-button align-self-center mt-3">
-        <Button>prev</Button>
-        <Button className="active">1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
-        <Button>next</Button>
-      </ButtonGroup>
+      <Pagination count={adminLogs.count} variant="outlined" />
     </div>
   );
 };

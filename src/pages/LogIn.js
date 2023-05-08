@@ -24,16 +24,17 @@ const Login = () => {
           email,
           password,
         })
-        .then((response) => {
-          localStorage.setItem("token", response.data.token);
-
-          navigate("/");
+        .then(async (response) => {
+          await localStorage.setItem("token", response.data.token);
+          await navigate("/");
+          window.location.reload();
         });
     } catch (error) {
       console.log(error);
       setError(true);
     }
   };
+
   const token = getToken();
 
   if (token) {
@@ -60,17 +61,6 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {/* <FormControlLabel
-            label="Remember Me?"
-            control={
-              <Checkbox
-                value={rememberMe}
-                //  checked={}
-                onChange={() => setRememberMe(!rememberMe)}
-                color="primary"
-              />
-            }
-          /> */}
           <Button
             className="button-primary-edit"
             onClick={() => handleSignIn()}
