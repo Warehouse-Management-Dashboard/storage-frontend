@@ -23,3 +23,41 @@ code {
   padding: 0;
   box-sizing: border-box;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #3a57e8 #222738;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 1rem;
+}
+/* 
+*::-webkit-scrollbar-track {
+  background: #222738;
+} */
+
+*::-webkit-scrollbar-thumb {
+  background-color: #3a57e8;
+  border-radius: 10px;
+  border: 3px solid #222738;
+  cursor: pointer;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #2f3241;
+}
+/* input type number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
