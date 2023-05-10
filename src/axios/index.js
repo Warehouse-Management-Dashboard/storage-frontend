@@ -44,7 +44,9 @@ export const updateProduct = ({ id, values }) =>
 export const createProductCategory = ({ name }) =>
   API.post("/api/product-category/create", { name });
 export const updateProductCategory = ({ id, name }) =>
-  API.put(`/api/product-category/update/${id}`, name);
+  API.put(`/api/product-category/update/${id}`, {
+    name: name,
+  });
 export const deleteProductCategory = (id) =>
   API.delete(`/api/product-category/delete/${id}`);
 export const fetchProductCategory = ({ limit = limitDefaultValue, offset }) =>

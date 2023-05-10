@@ -12,7 +12,7 @@ import {
   LineElement,
 } from "chart.js";
 import { getPieData } from "../data/PieChart";
-import { getLineData, lineData } from "../data/LineChart";
+import { getLineData } from "../data/LineChart";
 import moment from "moment";
 import { Container, Spinner } from "react-bootstrap";
 import Box from "@mui/material/Box";

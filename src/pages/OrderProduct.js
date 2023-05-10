@@ -14,7 +14,6 @@ import { Container } from "react-bootstrap";
 import { fetchProductCategory } from "../redux/slices/productCategoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { createProducts } from "../redux/slices/productsSlice";
-const categorySelection = ["laptop", "smartphone", "smartwatch"];
 const OrderProduct = () => {
   const [showOrderConfirmModal, setShowOrderConfirmModal] = useState(false);
   const [productName, setProductName] = useState("");
@@ -103,12 +102,12 @@ const OrderProduct = () => {
     )
       .unwrap()
       .then(() => {
-        setProductName();
-        setQuantity();
-        setCategory();
-        setSupplier();
-        setOrderPrice();
-        setSellPrice();
+        setProductName("");
+        setQuantity("");
+        setCategory("");
+        setSupplier("");
+        setOrderPrice("");
+        setSellPrice("");
         setShowOrderConfirmModal(false);
       });
   };

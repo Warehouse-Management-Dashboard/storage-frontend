@@ -43,6 +43,7 @@ const AddCategoryModal = ({ showModal, closeModal, selectedCategory }) => {
   const dispatch = useDispatch();
 
   const addCategory = () => {
+    console.log(selectedCategory);
     if (selectedCategory) {
       dispatch(
         updateProductCategory({
