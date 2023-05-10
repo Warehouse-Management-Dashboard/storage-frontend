@@ -11,7 +11,12 @@ import ConfirmModal from "../modal/ConfirmModal";
 const SellProduct = () => {
   const [inputs, setInputs] = useState([
     {
-      productName: { value: "", isError: false, errorMassage: "" },
+      productName: {
+        value: "",
+        isError: false,
+        errorMassage: "",
+        productId: "",
+      },
       quantity: { value: "", isError: false, errorMassage: "" },
     },
   ]);
@@ -19,7 +24,12 @@ const SellProduct = () => {
     setInputs((prev) => [
       ...prev,
       {
-        productName: { value: "", isError: false, errorMassage: "" },
+        productName: {
+          value: "",
+          isError: false,
+          errorMassage: "",
+          productId: "",
+        },
         quantity: { value: "", isError: false, errorMassage: "" },
       },
     ]);
@@ -42,6 +52,10 @@ const SellProduct = () => {
     setInputs((prev) => {
       const array = [...prev];
       array[i].productName.value = value;
+      // SOlUTION 1: change productId when input change
+      array[i].productName.productId = searchProductId(array, i);
+      console.log(inputs);
+      console.log(inputs[i].productName.productId);
       return array;
     });
     if (productName.isError) {
@@ -52,6 +66,15 @@ const SellProduct = () => {
         return array;
       });
     }
+  };
+  // SOLUTION 1
+  const searchProductId = (prev, i) => {
+    for (let j = 0; j < top100Films.length; j++) {
+      if (prev[i].productName.value === top100Films[j].title) {
+        return top100Films[j].year;
+      }
+    }
+    return "";
   };
   const handleProductNameOnBlur = (e, reason, i) => {
     if (reason === "blur") {
@@ -119,12 +142,29 @@ const SellProduct = () => {
     });
   };
   const sellProductHandler = () => {
+    // SOLUTION 2: Change productId when click sell button
+    // const inputsWithProductId = makeInputsWithProductId();
+    // console.log(inputsWithProductId);
     setShowSellConfirmModal(false);
   };
   const sellButtonHandler = () => {
     const error = validation();
     if (!error) setShowSellConfirmModal(true);
   };
+  // SOLUTION 2
+  // const makeInputsWithProductId = () => {
+  //   const newInputs = [...inputs];
+  //   newInputs.map((input) => {
+  //     const newInput = { ...input };
+  //     for (let j = 0; j < top100Films.length; j++) {
+  //       if (newInput.productName.value === top100Films[j].title) {
+  //         newInput.productName.productId = top100Films[j].year;
+  //         return newInput;
+  //       }
+  //     }
+  //   });
+  //   return newInputs;
+  // };
   const validation = () => {
     let error = false;
     inputs.forEach((input, i) => {
@@ -221,6 +261,7 @@ const SellProduct = () => {
                   }}
                   error={quantity.isError}
                   helperText={quantity.errorMassage}
+                  type="number "
                 />
                 <Button
                   variant="contained"
