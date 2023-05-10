@@ -10,6 +10,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { CSVLink } from "react-csv";
 const sortBySelection = ["NEWEST", "OLDEST", "A-Z", "Z-A"];
 
 const TablesAction = ({
@@ -21,6 +22,7 @@ const TablesAction = ({
   setFilterByName,
   productCategory,
   products,
+  productDatas,
 }) => {
   return (
     <Container className="p-3 c-bg-2 box-shadow rounded align-items-center justify-content-end">
@@ -102,7 +104,12 @@ const TablesAction = ({
           className="button-primary-edit"
           style={{ height: 40, flexShrink: 0 }}
         >
-          <span className="pe-2">Export</span>
+          <CSVLink
+            className="pe-2 text-white text-decoration-none"
+            data={productDatas}
+          >
+            Export
+          </CSVLink>
           <FileEarmarkArrowDown className="d-inline-block" />
         </Button>
       </div>

@@ -17,6 +17,8 @@ const Tables = () => {
   const products = useSelector((state) => state.products);
   const productCategory = useSelector((state) => state.productCategory);
 
+  const [productDatas, setProductDatas] = useState([]);
+
   useEffect(() => {
     dispatch(
       fetchProducts({
@@ -24,7 +26,37 @@ const Tables = () => {
         sortBy: sortBySelect,
         productCategoryId: categorySelect,
       })
-    );
+    )
+      .unwrap()
+      .then(({ data }) => {
+        const dataTitle = [
+          [
+            "Product Name",
+            "Category",
+            "Supplier",
+            "Quantity",
+            "Order Price",
+            "Sell Price",
+            "Total Order Price",
+            "Total Sell Price",
+          ],
+        ];
+
+        data.map((product) => {
+          dataTitle.push([
+            product.product_name ?? "",
+            product.product_category?.name ?? "",
+            product.supplier ?? "",
+            product.quantity ?? "",
+            product.order_price ?? "",
+            product.sell_price ?? "",
+            product.total_order_price ?? "",
+            product.total_sell_price ?? "",
+          ]);
+        });
+
+        setProductDatas(dataTitle);
+      });
   }, [dispatch, searchName, categorySelect, filterByName, sortBySelect]);
 
   useEffect(() => {
@@ -42,6 +74,7 @@ const Tables = () => {
         setFilterByName={setFilterByName}
         productCategory={productCategory}
         products={products}
+        productDatas={productDatas}
       />
       <TablesTable products={products} />
     </div>
