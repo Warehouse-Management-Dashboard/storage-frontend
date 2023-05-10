@@ -8,7 +8,8 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import ConfirmModal from "../modal/ConfirmModal";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, sellProduct } from "../redux/slices/productsSlice";
+import { fetchProducts } from "../redux/slices/productsSlice";
+import { sellProduct } from "../redux/slices/productsSlice";
 
 const SellProduct = () => {
   const [inputs, setInputs] = useState([
@@ -41,6 +42,15 @@ const SellProduct = () => {
     isError: false,
     errorMassage: "",
   });
+
+  const dispatch = useDispatch();
+
+  const products = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(fetchProducts({}));
+  }, [dispatch]);
+
   const [showSellConfirmModal, setShowSellConfirmModal] = useState(false);
   const deleteInput = (i) => {
     if (inputs.length === 1) return;
@@ -56,8 +66,6 @@ const SellProduct = () => {
       array[i].productName.value = value;
       // SOlUTION 1: change productId when input change
       array[i].productName.productId = searchProductId(array, i);
-      console.log(inputs);
-      console.log(inputs[i].productName.productId);
       return array;
     });
     if (productName.isError) {
@@ -71,9 +79,9 @@ const SellProduct = () => {
   };
   // SOLUTION 1
   const searchProductId = (prev, i) => {
-    for (let j = 0; j < top100Films.length; j++) {
-      if (prev[i].productName.value === top100Films[j].title) {
-        return top100Films[j].year;
+    for (let j = 0; j < products.data.length; j++) {
+      if (prev[i].productName.value === products.data[j].product_name) {
+        return products.data[j].id;
       }
     }
     return "";
@@ -85,7 +93,7 @@ const SellProduct = () => {
   };
   const checkDataAvailableProductName = (e, i) => {
     products.data.forEach((option) => {
-      if (option.title === e.target.value) return;
+      if (option.product_name === e.target.value) return;
     });
     setInputs((prev) => {
       const array = [...prev];
@@ -144,29 +152,13 @@ const SellProduct = () => {
     });
   };
   const sellProductHandler = () => {
-    // SOLUTION 2: Change productId when click sell button
-    // const inputsWithProductId = makeInputsWithProductId();
-    // console.log(inputsWithProductId);
     setShowSellConfirmModal(false);
   };
   const sellButtonHandler = () => {
     const error = validation();
     if (!error) setShowSellConfirmModal(true);
   };
-  // SOLUTION 2
-  // const makeInputsWithProductId = () => {
-  //   const newInputs = [...inputs];
-  //   newInputs.map((input) => {
-  //     const newInput = { ...input };
-  //     for (let j = 0; j < top100Films.length; j++) {
-  //       if (newInput.productName.value === top100Films[j].title) {
-  //         newInput.productName.productId = top100Films[j].year;
-  //         return newInput;
-  //       }
-  //     }
-  //   });
-  //   return newInputs;
-  // };
+
   const validation = () => {
     let error = false;
     inputs.forEach((input, i) => {
@@ -201,27 +193,21 @@ const SellProduct = () => {
     return error;
   };
 
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
-
-  useEffect(() => {
-    dispatch(fetchProducts({}));
-  }, [dispatch]);
-
-  const handleSellProduct = () => {
+  const handleSubmit = () => {
     const values = {
       customer: customerName.value,
-      products: inputs.map((product) => ({
-        productId: product.productName.productId,
-        quantity: product.quantity.value,
+      products: inputs.map((input) => ({
+        productId: input.productName.productId,
+        quantity: input.quantity.value,
       })),
     };
-
-    console.log(values);
-    // dispatch(sellProduct())
+    dispatch(sellProduct(values))
+      .unwrap()
+      .then(() => {
+        sellProductHandler(false);
+      })
+      .catch((err) => console.log(err));
   };
-
-  console.log(inputs);
 
   return (
     <div className="px-4 py-3">
@@ -230,8 +216,7 @@ const SellProduct = () => {
         closeModal={() => setShowSellConfirmModal(false)}
         title={"Do you want to sell the product?"}
         yesAction={() => {
-          handleSellProduct();
-          sellProductHandler(false);
+          handleSubmit();
         }}
       />
 
