@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Stack } from "react-bootstrap";
+import { Image, Nav, Stack } from "react-bootstrap";
 import "../assets/stylesheet/side-bar.css";
 import { NavLink } from "react-router-dom";
 import {
@@ -13,6 +13,8 @@ import {
 } from "react-bootstrap-icons";
 import { ArrowLeft } from "react-bootstrap-icons";
 import Typography from "@mui/material/Typography";
+import logo from "../assets/logo.png";
+
 const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
   return (
     <>
@@ -21,7 +23,10 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
         style={{ zIndex: 1100 }}
       >
         <div className="side-bar-logo d-flex justify-content-center align-items-center bottom-line position-relative">
-          <h1>LOGO</h1>
+          <div className="d-flex flex-row align-items-center justify-content-center">
+            <Image src={logo} width={40} height={40} />
+            <span className="fs-1 mx-3">WMS</span>
+          </div>
           <div
             className="  sidebar-close-button p-1 c-bg-3 c-bg-hover box-shadow rounded position-absolute top-50 start-100 translate-middle"
             onClick={sideBarOpenHandle}
