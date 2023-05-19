@@ -38,7 +38,7 @@ export const fetchProduct = ({
 export const fetchProductDetail = (id) => API.get(`/api/product/${id}`);
 export const deleteProduct = (id) => API.delete(`/api/product/delete/${id}`);
 export const updateProduct = ({ id, values }) =>
-  API.post(`/api/product/update/${id}`, values);
+  API.put(`/api/product/update/${id}`, values);
 
 // product category
 export const createProductCategory = ({ name }) =>

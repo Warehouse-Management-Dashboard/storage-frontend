@@ -17,6 +17,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductCategory } from "../redux/slices/productCategoriesSlice";
+import { fetchProducts, updateProducts } from "../redux/slices/productsSlice";
 const categorySelection = ["laptop", "smartphone", "smartwatch"];
 const EditModal = ({ showModal, closeModal, data }) => {
   const [showOrderConfirmModal, setShowOrderConfirmModal] = useState(false);
@@ -35,13 +38,22 @@ const EditModal = ({ showModal, closeModal, data }) => {
     sellPrice: { isError: false, helperText: "" },
   });
   useEffect(() => {
-    setProductName(data.productName);
+    setProductName(data.product_name);
     setQuantity(data.quantity);
-    setCategory(data.category);
+    setCategory(data?.product_category?.id);
     setSupplier(data.supplier);
-    setOrderPrice(data.orderPrice);
-    setSellPrice(data.sellPrice);
+    setOrderPrice(data.order_price);
+    setSellPrice(data.sell_price);
   }, [data]);
+
+  const dispatch = useDispatch();
+
+  const productCategory = useSelector((state) => state.productCategory);
+
+  useEffect(() => {
+    dispatch(fetchProductCategory({}));
+  }, [dispatch]);
+
   const submitHandle = () => {
     if (
       productName &&
@@ -91,6 +103,31 @@ const EditModal = ({ showModal, closeModal, data }) => {
       }
     }
   };
+
+  const handleSubmit = () => {
+    const values = {
+      productName,
+      productCategoryId: category,
+      quantity,
+      supplier,
+      sellPrice,
+      orderPrice,
+    };
+
+    dispatch(
+      updateProducts({
+        id: data.id,
+        values,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        dispatch(fetchProducts({}));
+
+        setShowOrderConfirmModal(false);
+        closeModal();
+      });
+  };
   return (
     <>
       <ConfirmModal
@@ -98,7 +135,7 @@ const EditModal = ({ showModal, closeModal, data }) => {
         closeModal={() => setShowOrderConfirmModal(false)}
         title="Are You Sure to Edit?"
         yesAction={() => {
-          setShowOrderConfirmModal(false);
+          handleSubmit();
         }}
       />
 
@@ -203,10 +240,10 @@ const EditModal = ({ showModal, closeModal, data }) => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {categorySelection.map((item, i) => {
+                  {productCategory.data.map((item, i) => {
                     return (
-                      <MenuItem value={item} key={i}>
-                        {item}
+                      <MenuItem value={item.id} key={i}>
+                        {item.name}
                       </MenuItem>
                     );
                   })}

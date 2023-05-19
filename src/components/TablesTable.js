@@ -10,22 +10,30 @@ import { getCapitalize } from "../utils/getCapitalize";
 import { getPrice } from "../utils/getPrice";
 import { Pagination } from "@mui/material";
 import TablePagination from "./TablePagination";
+import { useDispatch } from "react-redux";
+import { deleteProduct, fetchProducts } from "../redux/slices/productsSlice";
 
 const TablesTable = ({ products }) => {
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const dataEditSelected = useRef({});
   const dataDeleteSelected = useRef(" ");
+
+  const dispatch = useDispatch();
   // delete product
   // 1. open confirm delete modal
   const openDeleteConfirmModal = (data) => {
-    dataDeleteSelected.current = data.productName;
+    dataDeleteSelected.current = data;
     setShowDeleteConfirmModal(true);
   };
   // 2. if yes, delete product
-  const deleteProduct = () => {
-    console.log("data deleted " + dataDeleteSelected.current);
-    setShowDeleteConfirmModal(false);
+  const handleDeleteProduct = () => {
+    dispatch(deleteProduct(dataDeleteSelected.current.id))
+      .unwrap()
+      .then(() => {
+        dispatch(fetchProducts({}));
+        setShowDeleteConfirmModal(false);
+      });
   };
   // edit product
   const openEditModal = (data) => {
@@ -60,7 +68,7 @@ const TablesTable = ({ products }) => {
         <td>{getPrice(sell_price)}</td>
         <td>{getPrice(total_order_price)}</td>
         <td>{getPrice(total_sell_price)}</td>
-        {/* <td>
+        <td>
           <div className="d-flex gap-2">
             {" "}
             <MuiButton
@@ -68,7 +76,7 @@ const TablesTable = ({ products }) => {
               color="warning"
               j
               sx={{ minWidth: 0, px: 1 }}
-              onClick={() => openEditModal(data)}
+              onClick={() => openEditModal(props)}
             >
               <Pencil />
             </MuiButton>
@@ -76,12 +84,12 @@ const TablesTable = ({ products }) => {
               variant="contained"
               color="error"
               sx={{ minWidth: 0, px: 1 }}
-              onClick={() => openDeleteConfirmModal(data)}
+              onClick={() => openDeleteConfirmModal(props)}
             >
               <Trash />
             </MuiButton>
           </div>
-        </td> */}
+        </td>
       </tr>
     );
   };
@@ -98,9 +106,9 @@ const TablesTable = ({ products }) => {
         showModal={showDeleteConfirmModal}
         closeModal={() => setShowDeleteConfirmModal(false)}
         title={`Are You Sure to Delete  ${getCapitalize(
-          dataDeleteSelected.current
+          dataDeleteSelected.current.product_name
         )} ?`}
-        yesAction={deleteProduct}
+        yesAction={handleDeleteProduct}
       />
       <EditModal
         showModal={showEditModal}
