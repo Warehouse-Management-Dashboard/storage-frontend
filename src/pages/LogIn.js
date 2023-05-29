@@ -65,6 +65,7 @@ const Login = () => {
             id="password"
             label="password"
             value={password}
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button

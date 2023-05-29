@@ -43,9 +43,9 @@ const SideBar = ({ sideBarClassName, sideBarOpenHandle }) => {
             PAGES
           </Typography>
           <Nav.Item className="side-bar-item">
-            <NavLink className="nav-link" to="/" state="Dashboard">
+            <NavLink className="nav-link" to="/" state="Overview">
               <BarChart className="mb-1" />
-              <p className="d-inline ms-2">Dashboard</p>
+              <p className="d-inline ms-2">Overview</p>
             </NavLink>
           </Nav.Item>
           <Nav.Item className="side-bar-item ">
