@@ -122,8 +122,8 @@ const Dashboard = () => {
                 sx={{ minWidth: 120, transform: "translateY(-8px)" }}
                 size="small"
               >
-                <InputLabel id="month-select-label">Month</InputLabel>
-                <Select
+                {/* <InputLabel id="month-select-label">Month</InputLabel> */}
+                {/* <Select
                   labelId="month-select-label"
                   id="month-select"
                   value={monthSelect}
@@ -140,7 +140,7 @@ const Dashboard = () => {
                       </MenuItem>
                     );
                   })}
-                </Select>
+                </Select> */}
               </FormControl>
             </div>
             <div>
@@ -198,8 +198,8 @@ const Dashboard = () => {
                 sx={{ minWidth: 120, transform: "translateY(-8px)" }}
                 size="small"
               >
-                <InputLabel id="year-select-label">Year</InputLabel>
-                <Select
+                {/* <InputLabel id="year-select-label">Year</InputLabel> */}
+                {/* <Select
                   labelId="year-select-label"
                   id="year-select"
                   value={yearSelect}
@@ -216,7 +216,7 @@ const Dashboard = () => {
                       </MenuItem>
                     );
                   })}
-                </Select>
+                </Select> */}
               </FormControl>
             </div>
             <div className="">

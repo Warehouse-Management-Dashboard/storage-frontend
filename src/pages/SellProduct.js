@@ -205,6 +205,22 @@ const SellProduct = () => {
       .unwrap()
       .then(() => {
         sellProductHandler(false);
+        setCustomerName({
+          value: "",
+          isError: false,
+          errorMassage: "",
+        });
+        setInputs([
+          {
+            productName: {
+              value: "",
+              isError: false,
+              errorMassage: "",
+              productId: "",
+            },
+            quantity: { value: "", isError: false, errorMassage: "" },
+          },
+        ]);
       })
       .catch((err) => console.log(err));
   };
